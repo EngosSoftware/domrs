@@ -1,0 +1,11 @@
+[package]
+name = "domrs"
+version = "0.0.6"
+authors = ["Dariusz Depta <wisbery@users.noreply.github.com>"]
+description = "DOM builder and serializer"
+documentation = "https://docs.rs/domrs"
+repository = "https://github.com/wisbery/domrs.git"
+license = "MIT OR Apache-2.0"
+edition = "2021"
+
+[dependencies]
