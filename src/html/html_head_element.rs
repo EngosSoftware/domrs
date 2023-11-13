@@ -9,19 +9,19 @@ pub struct HtmlHeadElement {
 }
 
 impl HtmlHeadElement {
-  /// Add charset.
+  /// Use specified charset.
   pub fn with_charset(mut self, charset: &str) -> Self {
     self.charset = charset.to_string().into();
     self
   }
 
-  /// Add title.
+  /// Use specified title.
   pub fn with_title(mut self, title: &str) -> Self {
     self.title = title.to_string().into();
     self
   }
 
-  /// Add link.
+  /// Use specified link.
   pub fn with_link(mut self, link: HtmlLinkElement) -> Self {
     self.links.push(link);
     self

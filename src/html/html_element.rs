@@ -1,10 +1,7 @@
-use crate::HtmlAttribute;
+use crate::{HtmlAttribute, DEFAULT_HTML_INDENT};
 use std::fmt;
 use std::fmt::Display;
 use std::fmt::Write;
-
-/// Common indentation value.
-const INDENT: usize = 2;
 
 #[derive(Debug, Clone)]
 pub struct HtmlElement {
@@ -20,7 +17,7 @@ impl Display for HtmlElement {
   /// Converts `HTML` element into text.
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
     let mut buffer = String::new();
-    self.write(0, &mut buffer);
+    self.write(0, DEFAULT_HTML_INDENT, &mut buffer);
     write!(f, "{}", buffer)
   }
 }
@@ -106,11 +103,11 @@ impl HtmlElement {
   }
 
   /// Serializes the element to its textual representation.
-  pub fn write(&self, mut indent: usize, buffer: &mut String) {
-    if self.no_indent && indent >= INDENT {
-      indent -= INDENT;
+  pub fn write(&self, mut indentation: usize, indent: usize, buffer: &mut String) {
+    if self.no_indent && indentation >= indent {
+      indentation -= indent;
     }
-    let _ = write!(buffer, "{}<{}", indentation(self.no_indent, indent), self.name);
+    let _ = write!(buffer, "{}<{}", get_indentation(self.no_indent, indentation), self.name);
     for attribute in &self.attributes {
       let _ = write!(buffer, r#" {}="{}""#, attribute.name, attribute.value);
     }
@@ -120,9 +117,9 @@ impl HtmlElement {
         if line_count > 1 {
           let _ = write!(buffer, ">");
           for line in content.lines() {
-            let _ = write!(buffer, "\n{}{}", indentation(false, indent + INDENT), line);
+            let _ = write!(buffer, "\n{}{}", get_indentation(false, indentation + indent), line);
           }
-          let _ = write!(buffer, "\n{}</{}>", indentation(false, indent), self.name);
+          let _ = write!(buffer, "\n{}</{}>", get_indentation(false, indentation), self.name);
         } else {
           let _ = write!(buffer, ">{}</{}>", content, self.name);
         }
@@ -135,14 +132,14 @@ impl HtmlElement {
         if i > 0 {
           let _ = writeln!(buffer);
         }
-        child.write(indent + INDENT, buffer);
+        child.write(indentation + indent, indent, buffer);
       }
-      let _ = write!(buffer, "\n{}</{}>", indentation(self.no_indent, indent), self.name);
+      let _ = write!(buffer, "\n{}</{}>", get_indentation(self.no_indent, indentation), self.name);
     }
   }
 }
 
-fn indentation(no_indent: bool, indent: usize) -> String {
+fn get_indentation(no_indent: bool, indent: usize) -> String {
   if no_indent {
     "".to_string()
   } else {

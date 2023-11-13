@@ -1,4 +1,4 @@
-use crate::{HtmlElement, HtmlHeadElement, HtmlLinkElement};
+use domrs::{HtmlElement, HtmlHeadElement, HtmlLinkElement};
 
 #[test]
 fn default_should_work() {

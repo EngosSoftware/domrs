@@ -1,14 +1,14 @@
 use crate::HtmlElement;
 
-const SVG_XMLNS: &str = "http://www.w3.org/2000/svg";
+pub const DEFAULT_SVG_NAMESPACE: &str = "http://www.w3.org/2000/svg";
 
 #[derive(Default, Debug, Clone)]
-pub struct SvgElement {
+pub struct SvgDocument {
   width: Option<String>,
   height: Option<String>,
 }
 
-impl SvgElement {
+impl SvgDocument {
   /// Adds width.
   pub fn with_width(mut self, width: String) -> Self {
     self.width = width.into();
@@ -22,8 +22,8 @@ impl SvgElement {
   }
 }
 
-impl From<SvgElement> for HtmlElement {
-  fn from(value: SvgElement) -> Self {
+impl From<SvgDocument> for HtmlElement {
+  fn from(value: SvgDocument) -> Self {
     let mut svg = HtmlElement::new("svg");
     if let Some(width) = value.width {
       svg.set_attr("width", width);
@@ -31,7 +31,7 @@ impl From<SvgElement> for HtmlElement {
     if let Some(height) = value.height {
       svg.set_attr("height", height);
     }
-    svg.set_attr("xmlns", SVG_XMLNS);
+    svg.set_attr("xmlns", DEFAULT_SVG_NAMESPACE);
     svg
   }
 }

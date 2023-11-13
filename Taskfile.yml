@@ -15,6 +15,11 @@ tasks:
       - cmd: cargo clean
 
   clippy:
+    desc: Runs clippy
+    cmds:
+      - cmd: cargo +stable clippy
+
+  clippy-all:
     desc: Runs clippy for all targets
     cmds:
       - cmd: cargo +nightly clippy --all-targets
