@@ -28,4 +28,4 @@ pub use values::{CssNumber, CssValue};
 pub const DEFAULT_CSS_OFFSET: usize = 0;
 
 /// Default indentation in CSS document.
-pub const DEFAULT_CSS_INDENT: usize = 4;
+pub const DEFAULT_CSS_INDENT: usize = 2;

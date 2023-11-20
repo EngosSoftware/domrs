@@ -54,6 +54,14 @@ impl HtmlElement {
     element
   }
 
+  pub fn attr<T: ToString>(mut self, name: &str, value: T) -> Self {
+    self.attributes.push(HtmlAttribute {
+      name: name.to_string(),
+      value: value.to_string(),
+    });
+    self
+  }
+
   /// Sets an attribute of the HTML element.
   pub fn set_attr<T: ToString>(&mut self, name: &str, value: T) {
     self.attributes.push(HtmlAttribute {
@@ -98,8 +106,13 @@ impl HtmlElement {
   }
 
   /// Sets the content of the HTML element.
-  pub fn set_content(&mut self, content: &str) {
-    self.content = Some(content.to_string());
+  pub fn set_content(&mut self, content: String) {
+    self.content = content.into();
+  }
+
+  pub fn content(mut self, content: String) -> Self {
+    self.content = content.into();
+    self
   }
 
   /// Serializes the element to its textual representation.

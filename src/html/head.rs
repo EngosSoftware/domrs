@@ -1,4 +1,5 @@
-use crate::{CssDocument, HtmlElement, HtmlLinkElement};
+use crate::html::HtmlStyleElement;
+use crate::{HtmlElement, HtmlLinkElement};
 
 /// Structure representing the HTML `head` element.
 #[derive(Default, Debug, Clone)]
@@ -6,7 +7,7 @@ pub struct HtmlHeadElement {
   charset: Option<String>,
   title: Option<String>,
   links: Vec<HtmlLinkElement>,
-  style: Option<CssDocument>,
+  style: Option<HtmlStyleElement>,
 }
 
 impl HtmlHeadElement {
@@ -27,6 +28,12 @@ impl HtmlHeadElement {
     self.links.push(link);
     self
   }
+
+  /// Use specified styling.
+  pub fn with_style(mut self, style: HtmlStyleElement) -> Self {
+    self.style = style.into();
+    self
+  }
 }
 
 impl From<HtmlHeadElement> for HtmlElement {
@@ -39,13 +46,15 @@ impl From<HtmlHeadElement> for HtmlElement {
     }
     if let Some(title) = value.title {
       let mut title_element = HtmlElement::new("title");
-      title_element.set_content(&title);
+      title_element.set_content(title);
       head.add_child(title_element);
     }
     for link in value.links {
       head.add_child(link.into());
     }
-    if let Some(_style) = value.style {}
+    if let Some(style) = value.style {
+      head.add_child(style.into());
+    }
     head
   }
 }

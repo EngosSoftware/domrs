@@ -7,6 +7,11 @@ pub struct HtmlBodyElement {
 }
 
 impl HtmlBodyElement {
+  pub fn child(mut self, child: impl Into<HtmlElement>) -> Self {
+    self.children.push(child.into());
+    self
+  }
+
   pub fn add_child(&mut self, child: impl Into<HtmlElement>) {
     self.children.push(child.into());
   }

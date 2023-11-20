@@ -6,7 +6,7 @@ use std::fmt::Display;
 
 pub type CssNumber = (f64, usize, CssUnit);
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Clone)]
 pub enum CssValue {
   Avoid,
   Border(CssBorderWidth, CssBorderStyle, CssColor),
@@ -21,6 +21,7 @@ pub enum CssValue {
   Number2(CssNumber, CssNumber),
   Relative,
   Row,
+  Text(String),
 }
 
 impl Display for CssValue {
@@ -42,6 +43,7 @@ impl Display for CssValue {
         CssValue::Number2(top_bottom, left_right) => format!("{} {}", number_to_string(*top_bottom), number_to_string(*left_right)),
         CssValue::Relative => "relative".to_string(),
         CssValue::Row => "row".to_string(),
+        CssValue::Text(content) => content.clone(),
       }
     )
   }

@@ -5,6 +5,7 @@ mod element;
 mod head;
 mod headings;
 mod link;
+mod style;
 
 pub use attribute::HtmlAttribute;
 pub use body::HtmlBodyElement;
@@ -13,6 +14,7 @@ pub use element::HtmlElement;
 pub use head::HtmlHeadElement;
 pub use headings::HtmlHeadingLevel;
 pub use link::HtmlLinkElement;
+pub use style::HtmlStyleElement;
 
 /// Default HTML namespace.
 pub const DEFAULT_HTML_NAMESPACE: &str = "http://www.w3.org/1999/xhtml";

@@ -13,6 +13,8 @@ pub enum CssProperty {
   Color,
   Display,
   FlexDirection,
+  FontFamily,
+  FontSize,
   FontWeight,
   GridGap,
   Height,
@@ -41,6 +43,8 @@ impl Display for CssProperty {
         CssProperty::BreakInside => "break-inside",
         CssProperty::Color => "color",
         CssProperty::Display => "display",
+        CssProperty::FontFamily => "font-family",
+        CssProperty::FontSize => "font-size",
         CssProperty::FontWeight => "font-weight",
         CssProperty::FlexDirection => "flex-direction",
         CssProperty::GridGap => "grid-gap",
@@ -73,6 +77,8 @@ mod tests {
     assert_eq!("break-inside", CssProperty::BreakInside.to_string());
     assert_eq!("color", CssProperty::Color.to_string());
     assert_eq!("display", CssProperty::Display.to_string());
+    assert_eq!("font-family", CssProperty::FontFamily.to_string());
+    assert_eq!("font-size", CssProperty::FontSize.to_string());
     assert_eq!("font-weight", CssProperty::FontWeight.to_string());
     assert_eq!("flex-direction", CssProperty::FlexDirection.to_string());
     assert_eq!("grid-gap", CssProperty::GridGap.to_string());
