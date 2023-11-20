@@ -2,7 +2,7 @@ use std::fmt;
 use std::fmt::Display;
 
 /// CSS colors.
-#[derive(Copy, Clone)]
+#[derive(Debug, Copy, Clone)]
 pub enum CssColor {
   Black,
   Navy,

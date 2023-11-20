@@ -1,7 +1,7 @@
 use crate::utils::get_indentation;
 use crate::{HtmlAttribute, DEFAULT_HTML_INDENT};
 use std::fmt;
-use std::fmt::{Display, Write};
+use std::fmt::{Debug, Display, Write};
 
 #[derive(Debug, Clone)]
 pub struct HtmlElement {

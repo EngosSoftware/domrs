@@ -3,7 +3,7 @@ use crate::CssProperty;
 use std::fmt;
 use std::fmt::Display;
 
-#[derive(Copy, Clone)]
+#[derive(Debug, Copy, Clone)]
 pub struct CssDeclaration {
   property: CssProperty,
   value: CssValue,

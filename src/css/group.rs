@@ -3,6 +3,7 @@ use crate::{CssRuleset, DEFAULT_CSS_INDENT, DEFAULT_CSS_OFFSET};
 use std::fmt;
 use std::fmt::{Display, Write};
 
+#[derive(Debug, Clone)]
 pub enum CssAtRule {
   Media,
 }
@@ -19,6 +20,7 @@ impl Display for CssAtRule {
   }
 }
 
+#[derive(Debug, Clone)]
 pub struct CssGroup {
   rule: CssAtRule,
   query: String,

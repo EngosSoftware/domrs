@@ -2,6 +2,7 @@ use crate::{CssGroup, CssRuleset, DEFAULT_CSS_INDENT, DEFAULT_CSS_OFFSET};
 use std::fmt;
 use std::fmt::{Display, Write};
 
+#[derive(Debug, Clone)]
 pub enum CssElement {
   Ruleset(CssRuleset),
   Group(CssGroup),

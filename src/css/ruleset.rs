@@ -3,6 +3,7 @@ use crate::{CssDeclaration, CssProperty, CssSelector, CssValue};
 use std::fmt;
 use std::fmt::{Display, Write};
 
+#[derive(Debug, Clone)]
 pub struct CssRuleset {
   selector: CssSelector,
   declarations: Vec<CssDeclaration>,
@@ -11,10 +12,7 @@ pub struct CssRuleset {
 impl CssRuleset {
   ///
   pub fn new(selector: CssSelector) -> Self {
-    Self {
-      selector,
-      declarations: vec![],
-    }
+    Self { selector, declarations: vec![] }
   }
 
   pub fn declaration(mut self, property: CssProperty, value: impl Into<CssValue>) -> Self {

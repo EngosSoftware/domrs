@@ -2,7 +2,7 @@ use crate::{CssElement, CssGroup, CssRuleset, DEFAULT_CSS_INDENT, DEFAULT_CSS_OF
 use std::fmt;
 use std::fmt::{Display, Write};
 
-#[derive(Default)]
+#[derive(Default, Debug, Clone)]
 pub struct CssDocument {
   elements: Vec<CssElement>,
 }

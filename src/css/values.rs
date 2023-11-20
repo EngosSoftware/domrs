@@ -6,7 +6,7 @@ use std::fmt::Display;
 
 pub type CssNumber = (f64, usize, CssUnit);
 
-#[derive(Copy, Clone)]
+#[derive(Debug, Copy, Clone)]
 pub enum CssValue {
   Avoid,
   Border(CssBorderWidth, CssBorderStyle, CssColor),

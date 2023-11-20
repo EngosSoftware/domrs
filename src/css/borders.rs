@@ -4,7 +4,7 @@ use crate::CssUnit;
 use std::fmt;
 use std::fmt::Display;
 
-#[derive(Copy, Clone)]
+#[derive(Debug, Copy, Clone)]
 pub struct CssBorderWidth(CssNumber);
 
 impl CssBorderWidth {
@@ -19,7 +19,7 @@ impl Display for CssBorderWidth {
   }
 }
 
-#[derive(Copy, Clone)]
+#[derive(Debug, Copy, Clone)]
 pub enum CssBorderStyle {
   Dotted,
   Dashed,

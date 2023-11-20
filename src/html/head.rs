@@ -1,4 +1,4 @@
-use crate::{HtmlElement, HtmlLinkElement};
+use crate::{CssDocument, HtmlElement, HtmlLinkElement};
 
 /// Structure representing the HTML `head` element.
 #[derive(Default, Debug, Clone)]
@@ -6,6 +6,7 @@ pub struct HtmlHeadElement {
   charset: Option<String>,
   title: Option<String>,
   links: Vec<HtmlLinkElement>,
+  style: Option<CssDocument>,
 }
 
 impl HtmlHeadElement {
@@ -44,6 +45,7 @@ impl From<HtmlHeadElement> for HtmlElement {
     for link in value.links {
       head.add_child(link.into());
     }
+    if let Some(_style) = value.style {}
     head
   }
 }
