@@ -1,18 +1,7 @@
-use crate::{HtmlBodyElement, HtmlElement, HtmlHeadElement};
+use crate::html::DEFAULT_HTML_OFFSET;
+use crate::{HtmlBodyElement, HtmlElement, HtmlHeadElement, DEFAULT_HTML_DOCTYPE, DEFAULT_HTML_INDENT, DEFAULT_HTML_LANGUAGE, DEFAULT_HTML_NAMESPACE};
 use std::fmt::{Display, Write};
 use std::{fmt, fs, io};
-
-/// Default `XHTML` namespace.
-pub const DEFAULT_HTML_NAMESPACE: &str = "http://www.w3.org/1999/xhtml";
-
-/// Default `DOCTYPE`.
-pub const DEFAULT_HTML_DOCTYPE: &str = "<!DOCTYPE html>";
-
-/// Default language.
-pub const DEFAULT_HTML_LANGUAGE: &str = "en";
-
-/// Default indentation width.
-pub const DEFAULT_HTML_INDENT: usize = 2;
 
 /// Structure representing the `HTML` document.
 #[derive(Clone)]
@@ -83,24 +72,25 @@ impl HtmlDocument {
   }
 
   /// Returns the markup text for this `HTML` document.
-  pub fn to_markup(&self, indent: usize) -> String {
+  pub fn to_markup(&self, offset: usize, indent: usize) -> String {
     let mut markup = String::new();
     if let Some(doctype) = &self.doctype {
       let _ = writeln!(&mut markup, "{}", doctype);
     }
-    self.root.write(0, indent, &mut markup);
+    self.root.write(offset, indent, &mut markup);
+    let _ = writeln!(&mut markup);
     markup
   }
 
   /// Saves the document to specified file.
-  pub fn save(&self, file_name: &str, indent: usize) -> io::Result<()> {
-    fs::write(file_name, self.to_markup(indent))
+  pub fn save(&self, file_name: &str, offset: usize, indent: usize) -> io::Result<()> {
+    fs::write(file_name, self.to_markup(offset, indent))
   }
 }
 
 impl Display for HtmlDocument {
   /// Converts [HtmlDocument] into its text representation.
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-    write!(f, "{}", self.to_markup(DEFAULT_HTML_INDENT))
+    write!(f, "{}", self.to_markup(DEFAULT_HTML_OFFSET, DEFAULT_HTML_INDENT))
   }
 }

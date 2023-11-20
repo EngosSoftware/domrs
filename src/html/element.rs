@@ -1,7 +1,7 @@
+use crate::utils::get_indentation;
 use crate::{HtmlAttribute, DEFAULT_HTML_INDENT};
 use std::fmt;
-use std::fmt::Display;
-use std::fmt::Write;
+use std::fmt::{Display, Write};
 
 #[derive(Debug, Clone)]
 pub struct HtmlElement {
@@ -103,11 +103,11 @@ impl HtmlElement {
   }
 
   /// Serializes the element to its textual representation.
-  pub fn write(&self, mut indentation: usize, indent: usize, buffer: &mut String) {
-    if self.no_indent && indentation >= indent {
-      indentation -= indent;
+  pub fn write(&self, mut offset: usize, indent: usize, buffer: &mut String) {
+    if self.no_indent && offset >= indent {
+      offset -= indent;
     }
-    let _ = write!(buffer, "{}<{}", get_indentation(self.no_indent, indentation), self.name);
+    let _ = write!(buffer, "{}<{}", get_indentation(self.no_indent, offset), self.name);
     for attribute in &self.attributes {
       let _ = write!(buffer, r#" {}="{}""#, attribute.name, attribute.value);
     }
@@ -117,9 +117,9 @@ impl HtmlElement {
         if line_count > 1 {
           let _ = write!(buffer, ">");
           for line in content.lines() {
-            let _ = write!(buffer, "\n{}{}", get_indentation(false, indentation + indent), line);
+            let _ = write!(buffer, "\n{}{}", get_indentation(false, offset + indent), line);
           }
-          let _ = write!(buffer, "\n{}</{}>", get_indentation(false, indentation), self.name);
+          let _ = write!(buffer, "\n{}</{}>", get_indentation(false, offset), self.name);
         } else {
           let _ = write!(buffer, ">{}</{}>", content, self.name);
         }
@@ -132,17 +132,9 @@ impl HtmlElement {
         if i > 0 {
           let _ = writeln!(buffer);
         }
-        child.write(indentation + indent, indent, buffer);
+        child.write(offset + indent, indent, buffer);
       }
-      let _ = write!(buffer, "\n{}</{}>", get_indentation(self.no_indent, indentation), self.name);
+      let _ = write!(buffer, "\n{}</{}>", get_indentation(self.no_indent, offset), self.name);
     }
-  }
-}
-
-fn get_indentation(no_indent: bool, indent: usize) -> String {
-  if no_indent {
-    "".to_string()
-  } else {
-    " ".to_string().repeat(indent)
   }
 }

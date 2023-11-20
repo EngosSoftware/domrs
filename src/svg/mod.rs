@@ -1,1 +1,3 @@
-pub mod svg_document;
+mod document;
+
+pub use document::SvgDocument;

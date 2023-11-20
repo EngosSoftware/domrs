@@ -1,9 +1,9 @@
-/// Definition of used `HTML` heading levels.
-pub enum HeadingLevel {
-    H1,
-    H2,
-    H3,
-    H4,
-    H5,
-    H6,
+/// Definition of `HTML` heading levels.
+pub enum HtmlHeadingLevel {
+  H1,
+  H2,
+  H3,
+  H4,
+  H5,
+  H6,
 }

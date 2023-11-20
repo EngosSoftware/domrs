@@ -1,1 +1,1 @@
-mod svg_element;
+mod element;
