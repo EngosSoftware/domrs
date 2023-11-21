@@ -11,6 +11,12 @@ pub struct HtmlHeadElement {
 }
 
 impl HtmlHeadElement {
+  /// Use default charset which is `UTF-8`.
+  pub fn with_default_charset(mut self) -> Self {
+    self.charset = "UTF-8".to_string().into();
+    self
+  }
+
   /// Use specified charset.
   pub fn with_charset(mut self, charset: &str) -> Self {
     self.charset = charset.to_string().into();

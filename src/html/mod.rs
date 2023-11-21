@@ -3,7 +3,6 @@ mod body;
 mod document;
 mod element;
 mod head;
-mod headings;
 mod link;
 mod style;
 
@@ -12,7 +11,6 @@ pub use body::HtmlBodyElement;
 pub use document::HtmlDocument;
 pub use element::HtmlElement;
 pub use head::HtmlHeadElement;
-pub use headings::HtmlHeadingLevel;
 pub use link::HtmlLinkElement;
 pub use style::HtmlStyleElement;
 

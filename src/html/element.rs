@@ -151,3 +151,36 @@ impl HtmlElement {
     }
   }
 }
+
+/// Implementation of commonly used HTML elements.
+impl HtmlElement {
+  /// Creates `<h1>` element with specified content.
+  pub fn h1(content: String) -> Self {
+    Self::new("h1").content(content)
+  }
+
+  /// Creates `<h2>` element with specified content.
+  pub fn h2(content: String) -> Self {
+    Self::new("h2").content(content)
+  }
+
+  /// Creates `<h3>` element with specified content.
+  pub fn h3(content: String) -> Self {
+    Self::new("h3").content(content)
+  }
+
+  /// Creates `<h4>` element with specified content.
+  pub fn h4(content: String) -> Self {
+    Self::new("h4").content(content)
+  }
+
+  /// Creates `<h5>` element with specified content.
+  pub fn h5(content: String) -> Self {
+    Self::new("h5").content(content)
+  }
+
+  /// Creates `<h6>` element with specified content.
+  pub fn h6(content: String) -> Self {
+    Self::new("h6").content(content)
+  }
+}

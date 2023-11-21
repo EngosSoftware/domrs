@@ -1,6 +1,7 @@
 use domrs::HtmlDocument;
 
 mod document;
+mod elements;
 mod head;
 mod link;
 
@@ -24,6 +25,9 @@ const H002: &str = include_str!("files/H002.html");
 const H003: &str = include_str!("files/H003.html");
 const H004: &str = include_str!("files/H004.html");
 const H005: &str = include_str!("files/H005.html");
+
+// Test files for HTML elements
+const E001: &str = include_str!("files/E001.html");
 
 /// Utility function for comparing HTML documents.
 fn eq(expected: &str, doc: HtmlDocument) {
