@@ -20,7 +20,7 @@ fn title_should_work() {
 fn link_should_work() {
   eq(
     H004,
-    doc().head(HtmlHeadElement::default().link(HtmlLinkElement::default().with_rel("stylesheet").with_href("https://domrs.com/main.css"))),
+    doc().head(HtmlHeadElement::default().link(HtmlLinkElement::default().rel("stylesheet").href("https://domrs.com/main.css"))),
   );
 }
 
@@ -54,7 +54,7 @@ fn style_with_custom_indent_should_work() {
       .head(
         HtmlHeadElement::default()
           .title("TITLE")
-          .link(HtmlLinkElement::default().with_stylesheet("https://fonts.googleapis.com/css2?family=Pacifico&display=swap"))
+          .link(HtmlLinkElement::default().stylesheet("https://fonts.googleapis.com/css2?family=Pacifico&display=swap"))
           .style(HtmlStyleElement::new_indent(
             CssDocument::new().ruleset(
               CssRuleset::new(CssSelector::new().class("my-text"))

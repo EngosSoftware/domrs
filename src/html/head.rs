@@ -37,7 +37,7 @@ impl HtmlHeadElement {
 
   /// Use specified stylesheet
   pub fn stylesheet(mut self, href: &str) -> Self {
-    self.links.push(HtmlLinkElement::default().with_stylesheet(href));
+    self.links.push(HtmlLinkElement::default().stylesheet(href));
     self
   }
 

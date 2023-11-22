@@ -8,17 +8,17 @@ pub struct HtmlLinkElement {
 }
 
 impl HtmlLinkElement {
-  pub fn with_rel(mut self, rel: &str) -> Self {
+  pub fn rel(mut self, rel: &str) -> Self {
     self.rel = rel.to_string().into();
     self
   }
 
-  pub fn with_href(mut self, href: &str) -> Self {
+  pub fn href(mut self, href: &str) -> Self {
     self.href = href.to_string().into();
     self
   }
 
-  pub fn with_stylesheet(mut self, href: &str) -> Self {
+  pub fn stylesheet(mut self, href: &str) -> Self {
     self.rel = "stylesheet".to_string().into();
     self.href = href.to_string().into();
     self
