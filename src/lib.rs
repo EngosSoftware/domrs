@@ -5,7 +5,7 @@ mod utils;
 
 pub use css::{
   CssAtRule, CssBorderStyle, CssBorderWidth, CssColor, CssDeclaration, CssDocument, CssElement, CssGroup, CssNumber, CssProperty, CssRuleset, CssSelector, CssSelectorComponent,
-  CssSelectorPart, CssType, CssUnit, CssValue, DEFAULT_CSS_INDENT, DEFAULT_CSS_OFFSET,
+  CssSelectorPart, CssUnit, CssValue, DEFAULT_CSS_INDENT, DEFAULT_CSS_OFFSET,
 };
 pub use html::{
   HtmlAttribute, HtmlBodyElement, HtmlDocument, HtmlElement, HtmlHeadElement, HtmlLinkElement, HtmlStyleElement, DEFAULT_HTML_DOCTYPE, DEFAULT_HTML_INDENT, DEFAULT_HTML_LANGUAGE,

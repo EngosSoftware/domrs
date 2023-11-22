@@ -7,7 +7,6 @@ mod group;
 mod properties;
 mod ruleset;
 mod selector;
-mod types;
 mod units;
 mod values;
 
@@ -20,7 +19,6 @@ pub use group::{CssAtRule, CssGroup};
 pub use properties::CssProperty;
 pub use ruleset::CssRuleset;
 pub use selector::{CssSelector, CssSelectorComponent, CssSelectorPart};
-pub use types::CssType;
 pub use units::CssUnit;
 pub use values::{CssNumber, CssValue};
 

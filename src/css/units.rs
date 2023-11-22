@@ -30,8 +30,6 @@ pub enum CssUnit {
   /// Line height of the element.
   Lh,
   /// Line height of the root element.
-  /// When used on the font-size or line-height properties of the root element,
-  /// it refers to the properties' initial value.
   Rlh,
   /// 1% of the viewport's width.
   Vw,
