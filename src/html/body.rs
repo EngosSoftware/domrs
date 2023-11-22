@@ -15,10 +15,6 @@ impl HtmlBodyElement {
   pub fn add_child(&mut self, child: impl Into<HtmlElement>) {
     self.children.push(child.into());
   }
-
-  pub fn add_br(&mut self) {
-    self.children.push(HtmlElement::new("br"));
-  }
 }
 
 impl From<HtmlBodyElement> for HtmlElement {

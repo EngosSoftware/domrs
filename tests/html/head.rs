@@ -45,3 +45,26 @@ fn style_should_work() {
       .with_body(HtmlBodyElement::default().child(HtmlElement::new("span").attr("class", "my-text").content("DOM builder and serializer".to_string()))),
   );
 }
+
+#[test]
+fn style_with_custom_indent_should_work() {
+  eq(
+    H006,
+    doc()
+      .with_head(
+        HtmlHeadElement::default()
+          .with_title("TITLE")
+          .with_link(HtmlLinkElement::default().with_stylesheet("https://fonts.googleapis.com/css2?family=Pacifico&display=swap"))
+          .with_style(HtmlStyleElement::new_indent(
+            CssDocument::new().ruleset(
+              CssRuleset::new(CssSelector::new().class("my-text"))
+                .declaration(CssProperty::FontFamily, CssValue::Text("Pacifico, serif".to_string()))
+                .declaration(CssProperty::FontSize, CssValue::Number((40.0, 0, CssUnit::Pt)))
+                .declaration(CssProperty::Color, CssValue::Color(CssColor::BlueViolet)),
+            ),
+            4,
+          )),
+      )
+      .with_body(HtmlBodyElement::default().child(HtmlElement::new("span").attr("class", "my-text").content("DOM builder and serializer".to_string()))),
+  );
+}
