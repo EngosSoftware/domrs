@@ -3,7 +3,7 @@ use std::fmt::Display;
 
 pub type CssSelectorComponent = String;
 
-#[derive(Default, Debug, Clone)]
+#[derive(Debug, Default, Clone)]
 pub struct CssSelectorPart {
   components: Vec<CssSelectorComponent>,
 }
