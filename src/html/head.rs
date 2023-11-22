@@ -46,7 +46,7 @@ impl From<HtmlHeadElement> for HtmlElement {
   fn from(value: HtmlHeadElement) -> Self {
     let mut head = HtmlElement::new("head").no_indent();
     if let Some(charset) = value.charset {
-      let mut meta = HtmlElement::new("meta").no_closing();
+      let mut meta = HtmlElement::new("meta").hide_closing_tag();
       meta.set_attr("charset", charset);
       head.add_child(meta);
     }
@@ -56,10 +56,10 @@ impl From<HtmlHeadElement> for HtmlElement {
       head.add_child(title_element);
     }
     for link in value.links {
-      head.add_child(link.into());
+      head.add_child(link);
     }
     if let Some(style) = value.style {
-      head.add_child(style.into());
+      head.add_child(style);
     }
     head
   }

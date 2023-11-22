@@ -61,13 +61,13 @@ impl HtmlDocument {
 
   /// Uses custom head element.
   pub fn with_head(mut self, head: HtmlHeadElement) -> Self {
-    self.root.add_child(head.into());
+    self.root.add_child(head);
     self
   }
 
   /// Uses custom body element.
   pub fn with_body(mut self, body: HtmlBodyElement) -> Self {
-    self.root.add_child(body.into());
+    self.root.add_child(body);
     self
   }
 

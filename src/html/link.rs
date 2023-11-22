@@ -27,7 +27,7 @@ impl HtmlLinkElement {
 
 impl From<HtmlLinkElement> for HtmlElement {
   fn from(value: HtmlLinkElement) -> Self {
-    let mut link = HtmlElement::new("link").no_closing();
+    let mut link = HtmlElement::new("link").hide_closing_tag();
     if let Some(href) = value.href {
       link.set_attr("href", href);
     }

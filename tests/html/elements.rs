@@ -16,3 +16,16 @@ fn headings_should_work() {
     ),
   );
 }
+
+#[test]
+fn div_should_work() {
+  eq(
+    E002,
+    doc().with_head(HtmlHeadElement::default().with_default_charset().with_title("Div")).with_body(
+      HtmlBodyElement::default()
+        .child(HtmlElement::div().content("Before".to_string()))
+        .child(HtmlElement::div())
+        .child(HtmlElement::div().content("After".to_string())),
+    ),
+  );
+}

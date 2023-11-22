@@ -3,18 +3,27 @@ use crate::{HtmlAttribute, DEFAULT_HTML_INDENT};
 use std::fmt;
 use std::fmt::{Debug, Display, Write};
 
+/// HTML element.
 #[derive(Debug, Clone)]
 pub struct HtmlElement {
+  /// Name of the element, will appear as a tag name in HTML document.
   name: String,
+  /// Attributes of the element.
   attributes: Vec<HtmlAttribute>,
+  /// Textual content of the element.
   content: Option<String>,
+  /// Child elements.
   children: Vec<HtmlElement>,
-  no_closing: bool,
+  /// Flag indicating if closing tag will be serialized.
+  hide_closing_tag: bool,
+  /// Flag indicating if the element is serialized without indentation.
   no_indent: bool,
+  /// Flag indicating if closing tag will be expanded when element is empty.
+  always_expand: bool,
 }
 
 impl Display for HtmlElement {
-  /// Converts `HTML` element into text.
+  /// Converts this HTML element into text.
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
     let mut buffer = String::new();
     self.write(0, DEFAULT_HTML_INDENT, &mut buffer);
@@ -23,42 +32,37 @@ impl Display for HtmlElement {
 }
 
 impl HtmlElement {
-  /// Creates a new HTML element with specified name.
+  /// Creates a new HTML element with specified tag name.
   pub fn new(name: &str) -> Self {
     Self {
       name: name.to_string(),
       attributes: vec![],
       content: None,
       children: vec![],
-      no_closing: false,
+      hide_closing_tag: false,
       no_indent: false,
+      always_expand: false,
     }
   }
 
-  pub(crate) fn no_indent(mut self) -> Self {
+  pub fn no_indent(mut self) -> Self {
     self.no_indent = true;
     self
   }
 
-  pub(crate) fn no_closing(mut self) -> Self {
-    self.no_closing = true;
+  pub fn hide_closing_tag(mut self) -> Self {
+    self.hide_closing_tag = true;
     self
   }
 
-  /// Creates a new `div` element with optional class.
-  pub fn new_div(class: Option<&str>) -> Self {
-    let mut element = Self::new("div");
-    if let Some(class_name) = class {
-      element.set_class(class_name);
-    }
-    element
+  pub fn always_expand(mut self) -> Self {
+    self.always_expand = true;
+    self
   }
 
+  /// Sets an attribute of the HTML element.
   pub fn attr<T: ToString>(mut self, name: &str, value: T) -> Self {
-    self.attributes.push(HtmlAttribute {
-      name: name.to_string(),
-      value: value.to_string(),
-    });
+    self.set_attr(name, value);
     self
   }
 
@@ -70,7 +74,13 @@ impl HtmlElement {
     })
   }
 
-  /// Sets a `class` attribute of the HTML element.
+  /// Sets a class attribute of the HTML element.
+  pub fn class(mut self, class: &str) -> Self {
+    self.set_class(class);
+    self
+  }
+
+  /// Sets a class attribute of the HTML element.
   pub fn set_class(&mut self, class: &str) {
     self.attributes.push(HtmlAttribute {
       name: "class".to_string(),
@@ -78,7 +88,13 @@ impl HtmlElement {
     })
   }
 
-  /// Sets a `style` attribute of the HTML element.
+  /// Sets a style attribute of the HTML element.
+  pub fn style(mut self, style: &str) -> Self {
+    self.set_style(style);
+    self
+  }
+
+  /// Sets a style attribute of the HTML element.
   pub fn set_style(&mut self, style: &str) {
     self.attributes.push(HtmlAttribute {
       name: "style".to_string(),
@@ -87,8 +103,14 @@ impl HtmlElement {
   }
 
   /// Adds a child element.
-  pub fn add_child(&mut self, e: HtmlElement) {
-    self.children.push(e);
+  pub fn child(mut self, child: impl Into<HtmlElement>) -> Self {
+    self.add_child(child);
+    self
+  }
+
+  /// Adds a child element.
+  pub fn add_child(&mut self, child: impl Into<HtmlElement>) {
+    self.children.push(child.into());
   }
 
   /// Adds an optional child element.
@@ -105,18 +127,18 @@ impl HtmlElement {
     }
   }
 
+  pub fn content(mut self, content: String) -> Self {
+    self.set_content(content);
+    self
+  }
+
   /// Sets the content of the HTML element.
   pub fn set_content(&mut self, content: String) {
     self.content = content.into();
   }
 
-  pub fn content(mut self, content: String) -> Self {
-    self.content = content.into();
-    self
-  }
-
   /// Serializes the element to its textual representation.
-  pub fn write(&self, mut offset: usize, indent: usize, buffer: &mut String) {
+  pub(crate) fn write(&self, mut offset: usize, indent: usize, buffer: &mut String) {
     if self.no_indent && offset >= indent {
       offset -= indent;
     }
@@ -137,7 +159,17 @@ impl HtmlElement {
           let _ = write!(buffer, ">{}</{}>", content, self.name);
         }
       } else {
-        let _ = write!(buffer, "{}", if self.no_closing { ">".to_string() } else { "/>".to_string() });
+        let _ = write!(
+          buffer,
+          "{}",
+          if self.always_expand {
+            format!("></{}>", self.name)
+          } else if self.hide_closing_tag {
+            ">".to_string()
+          } else {
+            "/>".to_string()
+          }
+        );
       }
     } else {
       let _ = writeln!(buffer, ">");
@@ -182,5 +214,15 @@ impl HtmlElement {
   /// Creates `<h6>` element with specified content.
   pub fn h6(content: String) -> Self {
     Self::new("h6").content(content)
+  }
+
+  /// Creates `<br>` element.
+  pub fn br() -> Self {
+    Self::new("br")
+  }
+
+  /// Creates `<div>` element.
+  pub fn div() -> Self {
+    Self::new("div").always_expand()
   }
 }

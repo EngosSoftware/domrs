@@ -29,6 +29,7 @@ const H006: &str = include_str!("files/H006.html");
 
 // Test files for HTML elements
 const E001: &str = include_str!("files/E001.html");
+const E002: &str = include_str!("files/E002.html");
 
 /// Utility function for comparing HTML documents.
 fn eq(expected: &str, doc: HtmlDocument) {
