@@ -12,31 +12,37 @@ pub struct HtmlHeadElement {
 
 impl HtmlHeadElement {
   /// Use default charset which is `UTF-8`.
-  pub fn with_default_charset(mut self) -> Self {
+  pub fn default_charset(mut self) -> Self {
     self.charset = "UTF-8".to_string().into();
     self
   }
 
   /// Use specified charset.
-  pub fn with_charset(mut self, charset: &str) -> Self {
+  pub fn charset(mut self, charset: &str) -> Self {
     self.charset = charset.to_string().into();
     self
   }
 
   /// Use specified title.
-  pub fn with_title(mut self, title: &str) -> Self {
+  pub fn title(mut self, title: &str) -> Self {
     self.title = title.to_string().into();
     self
   }
 
   /// Use specified link.
-  pub fn with_link(mut self, link: HtmlLinkElement) -> Self {
+  pub fn link(mut self, link: HtmlLinkElement) -> Self {
     self.links.push(link);
     self
   }
 
+  /// Use specified stylesheet
+  pub fn stylesheet(mut self, href: &str) -> Self {
+    self.links.push(HtmlLinkElement::default().with_stylesheet(href));
+    self
+  }
+
   /// Use specified styling.
-  pub fn with_style(mut self, style: HtmlStyleElement) -> Self {
+  pub fn style(mut self, style: HtmlStyleElement) -> Self {
     self.style = style.into();
     self
   }

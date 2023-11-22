@@ -38,5 +38,5 @@ fn eq(expected: &str, doc: HtmlDocument) {
 
 /// Utility function that return default HTML document.
 fn doc() -> HtmlDocument {
-  HtmlDocument::default().with_default_doctype().with_default_language().with_default_namespace()
+  HtmlDocument::default().default_doctype().default_language().default_namespace()
 }

@@ -225,4 +225,9 @@ impl HtmlElement {
   pub fn div() -> Self {
     Self::new("div").always_expand()
   }
+
+  /// Creates `<span>` element.
+  pub fn span() -> Self {
+    Self::new("span").always_expand()
+  }
 }

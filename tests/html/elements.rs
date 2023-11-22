@@ -5,7 +5,7 @@ use domrs::{HtmlBodyElement, HtmlElement, HtmlHeadElement};
 fn headings_should_work() {
   eq(
     E001,
-    doc().with_head(HtmlHeadElement::default().with_default_charset().with_title("Heading")).with_body(
+    doc().head(HtmlHeadElement::default().default_charset().title("Heading")).body(
       HtmlBodyElement::default()
         .child(HtmlElement::h1("Heading 1".to_string()))
         .child(HtmlElement::h2("Heading 2".to_string()))
@@ -21,10 +21,12 @@ fn headings_should_work() {
 fn div_should_work() {
   eq(
     E002,
-    doc().with_head(HtmlHeadElement::default().with_default_charset().with_title("Div")).with_body(
+    doc().head(HtmlHeadElement::default().default_charset().title("Div")).body(
       HtmlBodyElement::default()
         .child(HtmlElement::div().content("Before".to_string()))
+        .child(HtmlElement::br())
         .child(HtmlElement::div())
+        .child(HtmlElement::br())
         .child(HtmlElement::div().content("After".to_string())),
     ),
   );

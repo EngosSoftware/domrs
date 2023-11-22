@@ -8,7 +8,7 @@ pub struct HtmlBodyElement {
 
 impl HtmlBodyElement {
   pub fn child(mut self, child: impl Into<HtmlElement>) -> Self {
-    self.children.push(child.into());
+    self.add_child(child);
     self
   }
 
