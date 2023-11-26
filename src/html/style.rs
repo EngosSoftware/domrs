@@ -15,8 +15,13 @@ impl HtmlStyleElement {
     }
   }
 
-  pub fn new_indent(style: CssDocument, indent: usize) -> Self {
-    Self { style, indent }
+  pub fn indent(mut self, indent: usize) -> Self {
+    self.set_indent(indent);
+    self
+  }
+
+  pub fn set_indent(&mut self, indent: usize) {
+    self.indent = indent;
   }
 }
 

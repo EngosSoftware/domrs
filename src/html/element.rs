@@ -231,3 +231,58 @@ impl HtmlElement {
     Self::new("span").always_expand()
   }
 }
+
+#[macro_export]
+macro_rules! h1 {
+  ($content:expr) => {
+    HtmlElement::h1($content)
+  };
+}
+
+#[macro_export]
+macro_rules! h2 {
+  ($content:expr) => {
+    HtmlElement::h2($content)
+  };
+}
+
+#[macro_export]
+macro_rules! h3 {
+  ($content:expr) => {
+    HtmlElement::h3($content)
+  };
+}
+
+#[macro_export]
+macro_rules! h4 {
+  ($content:expr) => {
+    HtmlElement::h4($content)
+  };
+}
+
+#[macro_export]
+macro_rules! h5 {
+  ($content:expr) => {
+    HtmlElement::h5($content)
+  };
+}
+
+#[macro_export]
+macro_rules! h6 {
+  ($content:expr) => {
+    HtmlElement::h6($content)
+  };
+}
+
+#[macro_export]
+macro_rules! div {
+  ($class:expr, $content:expr) => {
+    HtmlElement::div().class($class).content($content)
+  };
+  ($class:expr) => {
+    HtmlElement::div().class($class)
+  };
+  () => {
+    HtmlElement::div()
+  };
+}

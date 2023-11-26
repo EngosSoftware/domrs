@@ -1,8 +1,9 @@
 use crate::{CssElement, CssGroup, CssRuleset, DEFAULT_CSS_INDENT, DEFAULT_CSS_OFFSET};
 use std::fmt;
 use std::fmt::{Display, Write};
+use std::ops::Add;
 
-#[derive(Default, Debug, Clone)]
+#[derive(Debug, Default, Clone)]
 pub struct CssDocument {
   elements: Vec<CssElement>,
 }
@@ -44,5 +45,15 @@ impl Display for CssDocument {
   /// Implements [Display] for [CssDocument].
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
     write!(f, "{}", self.to_style(DEFAULT_CSS_OFFSET, DEFAULT_CSS_INDENT))
+  }
+}
+
+impl Add for CssDocument {
+  type Output = CssDocument;
+
+  fn add(self, rhs: Self) -> Self::Output {
+    let mut out = self.clone();
+    out.elements.append(&mut rhs.elements.clone());
+    out
   }
 }

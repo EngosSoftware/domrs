@@ -22,6 +22,11 @@ impl CssSelectorPart {
     self.components.push(format!(".{}", class));
     self
   }
+
+  pub fn element(mut self, element: &str) -> Self {
+    self.components.push(element.to_string());
+    self
+  }
 }
 
 impl Display for CssSelectorPart {
@@ -46,7 +51,12 @@ impl CssSelector {
   }
 
   pub fn class(mut self, class: &str) -> Self {
-    self.parts.push(CssSelectorPart::default().component(format!(".{}", class)));
+    self.parts.push(CssSelectorPart::new().class(class));
+    self
+  }
+
+  pub fn element(mut self, element: &str) -> Self {
+    self.parts.push(CssSelectorPart::new().element(element));
     self
   }
 }

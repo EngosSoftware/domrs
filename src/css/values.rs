@@ -1,27 +1,35 @@
-use crate::css::colors::CssColor;
-use crate::utils::number_to_string;
-use crate::{CssBorderStyle, CssBorderWidth, CssUnit};
+use crate::{CssBorder, CssColor, CssFontFamily, CssFontStyle, CssNumber};
 use std::fmt;
 use std::fmt::Display;
-
-pub type CssNumber = (f64, usize, CssUnit);
 
 #[derive(Debug, Clone)]
 pub enum CssValue {
   Avoid,
-  Border(CssBorderWidth, CssBorderStyle, CssColor),
+  Block,
+  Border(CssBorder),
   Center,
   Color(CssColor),
   Column,
   Flex,
   FlexStart,
+  FontFamily(CssFontFamily),
+  FontStyle(CssFontStyle),
   Grid,
+  Hidden,
+  InlineBlock,
   Integer(i64),
-  Number(CssNumber),
-  Number2(CssNumber, CssNumber),
+  Left,
+  None,
+  Num1(CssNumber),
+  Num2(CssNumber, CssNumber),
+  Num3(CssNumber, CssNumber, CssNumber),
+  Num4(CssNumber, CssNumber, CssNumber, CssNumber),
   Relative,
+  Right,
   Row,
-  Text(String),
+  Start,
+  Unset,
+  Zero,
 }
 
 impl Display for CssValue {
@@ -31,19 +39,31 @@ impl Display for CssValue {
       "{}",
       match self {
         CssValue::Avoid => "avoid".to_string(),
-        CssValue::Border(width, style, color) => format!("{} {} {}", width, style, color),
+        CssValue::Block => "block".to_string(),
+        CssValue::Border(border) => border.to_string(),
         CssValue::Center => "center".to_string(),
         CssValue::Color(color) => color.to_string(),
         CssValue::Column => "column".to_string(),
         CssValue::Flex => "flex".to_string(),
         CssValue::FlexStart => "flex-start".to_string(),
+        CssValue::FontFamily(family) => family.to_string(),
+        CssValue::FontStyle(style) => style.to_string(),
         CssValue::Grid => "grid".to_string(),
+        CssValue::Hidden => "hidden".to_string(),
+        CssValue::InlineBlock => "inline-block".to_string(),
         CssValue::Integer(value) => format!("{}", value),
-        CssValue::Number(number) => number_to_string(*number),
-        CssValue::Number2(top_bottom, left_right) => format!("{} {}", number_to_string(*top_bottom), number_to_string(*left_right)),
+        CssValue::Left => "left".to_string(),
+        CssValue::None => "none".to_string(),
+        CssValue::Num1(n1) => n1.to_string(),
+        CssValue::Num2(n1, n2) => format!("{} {}", n1, n2),
+        CssValue::Num3(n1, n2, n3) => format!("{} {} {}", n1, n2, n3),
+        CssValue::Num4(n1, n2, n3, n4) => format!("{} {} {} {}", n1, n2, n3, n4),
         CssValue::Relative => "relative".to_string(),
+        CssValue::Right => "right".to_string(),
         CssValue::Row => "row".to_string(),
-        CssValue::Text(content) => content.clone(),
+        CssValue::Start => "start".to_string(),
+        CssValue::Unset => "unset".to_string(),
+        CssValue::Zero => "0".to_string(),
       }
     )
   }
@@ -55,14 +75,81 @@ impl From<CssColor> for CssValue {
   }
 }
 
+impl From<CssFontFamily> for CssValue {
+  fn from(value: CssFontFamily) -> Self {
+    CssValue::FontFamily(value)
+  }
+}
+
+impl From<CssFontStyle> for CssValue {
+  fn from(value: CssFontStyle) -> Self {
+    CssValue::FontStyle(value)
+  }
+}
+
+impl From<CssNumber> for CssValue {
+  fn from(value: CssNumber) -> Self {
+    CssValue::Num1(value)
+  }
+}
+
+impl From<(CssNumber, CssNumber)> for CssValue {
+  fn from((n1, n2): (CssNumber, CssNumber)) -> Self {
+    CssValue::Num2(n1, n2)
+  }
+}
+
+impl From<(CssNumber, CssNumber, CssNumber)> for CssValue {
+  fn from((n1, n2, n3): (CssNumber, CssNumber, CssNumber)) -> Self {
+    CssValue::Num3(n1, n2, n3)
+  }
+}
+
+impl From<(CssNumber, CssNumber, CssNumber, CssNumber)> for CssValue {
+  fn from((n1, n2, n3, n4): (CssNumber, CssNumber, CssNumber, CssNumber)) -> Self {
+    CssValue::Num4(n1, n2, n3, n4)
+  }
+}
+
+impl From<CssBorder> for CssValue {
+  fn from(value: CssBorder) -> Self {
+    CssValue::Border(value)
+  }
+}
+
+impl From<i8> for CssValue {
+  fn from(value: i8) -> Self {
+    CssValue::Integer(value as i64)
+  }
+}
+
+impl From<i16> for CssValue {
+  fn from(value: i16) -> Self {
+    CssValue::Integer(value as i64)
+  }
+}
+
+impl From<i32> for CssValue {
+  fn from(value: i32) -> Self {
+    CssValue::Integer(value as i64)
+  }
+}
+
+impl From<i64> for CssValue {
+  fn from(value: i64) -> Self {
+    CssValue::Integer(value)
+  }
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
+  use crate::CssUnit;
 
   #[test]
   fn display_should_work() {
     assert_eq!("center", CssValue::Center.to_string());
-    assert_eq!("1.234px", CssValue::Number((1.234123_f64, 3, CssUnit::Px)).to_string());
+    assert_eq!("1.234px", CssValue::Num1(CssNumber::new(1.234123_f64, 3, CssUnit::Px)).to_string());
     assert_eq!("grid", CssValue::Grid.to_string());
   }
 }

@@ -2,7 +2,7 @@ use crate::HtmlElement;
 
 pub const DEFAULT_SVG_NAMESPACE: &str = "http://www.w3.org/2000/svg";
 
-#[derive(Default, Debug, Clone)]
+#[derive(Debug, Default, Clone)]
 pub struct SvgDocument {
   width: Option<String>,
   height: Option<String>,
@@ -10,13 +10,13 @@ pub struct SvgDocument {
 
 impl SvgDocument {
   /// Adds width.
-  pub fn with_width(mut self, width: String) -> Self {
+  pub fn width(mut self, width: String) -> Self {
     self.width = width.into();
     self
   }
 
   /// Adds height.
-  pub fn with_height(mut self, height: String) -> Self {
+  pub fn height(mut self, height: String) -> Self {
     self.height = height.into();
     self
   }

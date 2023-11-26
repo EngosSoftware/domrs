@@ -2,7 +2,7 @@ use crate::html::HtmlStyleElement;
 use crate::{HtmlElement, HtmlLinkElement};
 
 /// Structure representing the HTML `head` element.
-#[derive(Default, Debug, Clone)]
+#[derive(Debug, Default, Clone)]
 pub struct HtmlHeadElement {
   charset: Option<String>,
   title: Option<String>,

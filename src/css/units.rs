@@ -3,8 +3,12 @@ use std::fmt::Display;
 
 #[derive(Debug, Copy, Clone)]
 pub enum CssUnit {
+  /// Automatic.
+  Auto,
   /// No unit.
   None,
+  /// Percentage.
+  Perc,
   /// centimeters, 1cm = 37.8px = 25.2/64in.
   Cm,
   /// Millimeters, 1mm = 1/10th of 1cm
@@ -63,7 +67,9 @@ impl Display for CssUnit {
       f,
       "{}",
       match self {
+        CssUnit::Auto => "auto",
         CssUnit::None => "",
+        CssUnit::Perc => "%",
         CssUnit::Cm => "cm",
         CssUnit::Mm => "mm",
         CssUnit::Q => "Q",

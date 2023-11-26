@@ -4,7 +4,7 @@ use std::fmt::{Display, Write};
 use std::{fmt, fs, io};
 
 /// Structure representing the HTML document.
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub struct HtmlDocument {
   /// Document type.
   doctype: Option<String>,

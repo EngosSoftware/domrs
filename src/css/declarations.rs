@@ -5,14 +5,17 @@ use std::fmt::Display;
 
 #[derive(Debug, Clone)]
 pub struct CssDeclaration {
-  property: CssProperty,
-  value: CssValue,
+  pub(crate) property: CssProperty,
+  pub(crate) value: CssValue,
 }
 
 impl CssDeclaration {
   ///
-  pub fn new(property: CssProperty, value: CssValue) -> Self {
-    Self { property, value }
+  pub fn new(property: impl Into<CssProperty>, value: impl Into<CssValue>) -> Self {
+    Self {
+      property: property.into(),
+      value: value.into(),
+    }
   }
 
   ///
@@ -31,13 +34,13 @@ impl Display for CssDeclaration {
 mod tests {
   use crate::css::declarations::CssDeclaration;
   use crate::css::values::CssValue;
-  use crate::{CssProperty, CssUnit};
+  use crate::{CssNumber, CssProperty, CssUnit};
 
   #[test]
   fn display_should_work() {
     assert_eq!(
       "width: 1.2346px;",
-      CssDeclaration::new(CssProperty::Width, CssValue::Number((1.23456, 4, CssUnit::Px))).to_string()
+      CssDeclaration::new(CssProperty::Width, CssValue::Num1(CssNumber::new(1.23456, 4, CssUnit::Px))).to_string()
     );
   }
 }

@@ -1,21 +1,19 @@
-use crate::css::values::CssNumber;
-use crate::utils::number_to_string;
-use crate::CssUnit;
+use crate::{CssColor, CssNumber};
 use std::fmt;
 use std::fmt::Display;
 
 #[derive(Debug, Copy, Clone)]
-pub struct CssBorderWidth(CssNumber);
+pub struct CssBorder(CssNumber, CssBorderStyle, CssColor);
 
-impl CssBorderWidth {
-  pub fn new(value: f64, precision: usize, unit: CssUnit) -> Self {
-    Self((value, precision, unit))
+impl CssBorder {
+  pub fn new(width: CssNumber, style: CssBorderStyle, color: CssColor) -> Self {
+    Self(width, style, color)
   }
 }
 
-impl Display for CssBorderWidth {
+impl Display for CssBorder {
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-    write!(f, "{}", number_to_string(self.0))
+    write!(f, "{} {} {}", self.0, self.1, self.2)
   }
 }
 
@@ -52,4 +50,11 @@ impl Display for CssBorderStyle {
       }
     )
   }
+}
+
+#[macro_export]
+macro_rules! border {
+  ($width:expr, $style:expr, $color:expr) => {
+    CssBorder::new($width, $style, $color)
+  };
 }

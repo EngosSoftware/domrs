@@ -1,7 +1,7 @@
 use crate::HtmlElement;
 
 /// Structure representing the HTML `<link>` element.
-#[derive(Default, Debug, Clone)]
+#[derive(Debug, Default, Clone)]
 pub struct HtmlLinkElement {
   rel: Option<String>,
   href: Option<String>,
