@@ -17,6 +17,7 @@
 [mit-url]: LICENSE-MIT
 [cc-badge]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
 [cc-url]: CODE_OF_CONDUCT.md
+[rust-url]: https://www.rust-lang.org
 
 ## Overview
 
@@ -29,7 +30,7 @@ Key features:
 - **HTML, CSS and SVG support**
   
   Seamlessly build HTML web pages, stylized CSS documents and dynamic SVG graphics
-  using Rust's strong typing and safety.
+  using [Rust][rust-url]'s strong typing and safety.
 
 - **Builder pattern**
  
@@ -40,6 +41,14 @@ Key features:
 
   Effortlessly serialize created documents into standard-compliant HTML, CSS or SVG files,
   facilitating easy integration into web applications, storage or reporting tools.
+
+With its ergonomic design and robust functionality, **[domrs][crates-url]** offers a hassle-free
+solution for developers seeking a reliable tool to craft web-based documents within [Rust][rust-url] projects.
+Whether you're building a web app, generating dynamic graphics, or managing stylesheets,
+**[domrs][crates-url]** provides the tools you need.
+
+Get started with **[domrs][crates-url]** today and unlock the potential for efficient
+document creation and serialization in [Rust][rust-url]!
 
 ## License
 
