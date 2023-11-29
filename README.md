@@ -21,7 +21,7 @@
 
 ## Overview
 
-Welcome to **[domrs][crates-url]**, a powerful Rust library designed to streamline the creation
+Welcome to **[domrs][crates-url]**, a powerful [Rust][rust-url] library designed to streamline the creation
 and serialization of HTML, CSS and SVG documents. This crate empowers developers with a concise
 and intuitive interface to effortlessly construct structured and visually appealing documents.
 
