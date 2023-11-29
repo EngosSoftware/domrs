@@ -6,8 +6,8 @@
 
 Licensed under either of
 
-- [MIT license](https://opensource.org/licenses/MIT) ([LICENSE-MIT](https://github.com/wisbery/domrs/blob/main/LICENSE-MIT)), or
-- [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) ([LICENSE-APACHE](https://github.com/wisbery/domrs/blob/main/LICENSE-APACHE))
+- [MIT license](https://opensource.org/licenses/MIT) (see [LICENSE-MIT](LICENSE-MIT)), or
+- [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) (see [LICENSE](LICENSE) and [NOTICE](NOTICE))
 
 at your option.
 
