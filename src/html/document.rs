@@ -3,7 +3,7 @@ use crate::{HtmlBodyElement, HtmlElement, HtmlHeadElement, DEFAULT_HTML_DOCTYPE,
 use std::fmt::{Display, Write};
 use std::{fmt, fs, io};
 
-/// Structure representing the HTML document.
+/// Structure representing HTML document.
 #[derive(Debug, Clone)]
 pub struct HtmlDocument {
   /// Document type.
@@ -23,6 +23,11 @@ impl Default for HtmlDocument {
 }
 
 impl HtmlDocument {
+  /// Creates an empty HTML document.
+  pub fn new() -> Self {
+    Default::default()
+  }
+
   /// Uses default doctype declaration.
   pub fn default_doctype(mut self) -> Self {
     self.doctype = DEFAULT_HTML_DOCTYPE.to_string().into();

@@ -1,6 +1,6 @@
 use crate::HtmlElement;
 
-/// Structure representing the HTML `head` element.
+/// Structure representing HTML `<body>` element.
 #[derive(Debug, Default, Clone)]
 pub struct HtmlBodyElement {
   children: Vec<HtmlElement>,

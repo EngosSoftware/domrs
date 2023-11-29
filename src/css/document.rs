@@ -9,23 +9,23 @@ pub struct CssDocument {
 }
 
 impl CssDocument {
-  /// Creates a new CSS document.
+  /// Creates an empty CSS document.
   pub fn new() -> Self {
     Default::default()
   }
 
-  /// Adds a new element to this document.
+  /// Adds a new element to CSS document.
   pub fn add_element(&mut self, element: CssElement) {
     self.elements.push(element);
   }
 
-  /// Adds a new [CssRuleset] to this document.
+  /// Adds a new ruleset to CSS document.
   pub fn ruleset(mut self, ruleset: CssRuleset) -> Self {
     self.elements.push(CssElement::Ruleset(ruleset));
     self
   }
 
-  /// Adds a new [CssGroup] to this document.
+  /// Adds a new group to CSS document.
   pub fn group(mut self, group: CssGroup) -> Self {
     self.elements.push(CssElement::Group(group));
     self

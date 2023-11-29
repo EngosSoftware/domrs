@@ -1,9 +1,9 @@
-use crate::utils::get_indentation;
-use crate::{HtmlAttribute, DEFAULT_HTML_INDENT};
+use crate::common::{get_indentation, ToText};
+use crate::{HtmlAttribute, DEFAULT_HTML_INDENT, DEFAULT_HTML_OFFSET};
 use std::fmt;
 use std::fmt::{Debug, Display, Write};
 
-/// HTML element.
+/// Structure representing HTML element.
 #[derive(Debug, Clone)]
 pub struct HtmlElement {
   /// Name of the element, will appear as a tag name in HTML document.
@@ -20,15 +20,6 @@ pub struct HtmlElement {
   no_indent: bool,
   /// Flag indicating if closing tag will be expanded when element is empty.
   always_expand: bool,
-}
-
-impl Display for HtmlElement {
-  /// Converts this HTML element into text.
-  fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-    let mut buffer = String::new();
-    self.write(0, DEFAULT_HTML_INDENT, &mut buffer);
-    write!(f, "{}", buffer)
-  }
 }
 
 impl HtmlElement {
@@ -127,14 +118,14 @@ impl HtmlElement {
     }
   }
 
-  pub fn content(mut self, content: String) -> Self {
+  pub fn content(mut self, content: &str) -> Self {
     self.set_content(content);
     self
   }
 
   /// Sets the content of the HTML element.
-  pub fn set_content(&mut self, content: String) {
-    self.content = content.into();
+  pub fn set_content(&mut self, content: &str) {
+    self.content = content.to_string().into();
   }
 
   /// Serializes the element to its textual representation.
@@ -184,54 +175,170 @@ impl HtmlElement {
   }
 }
 
+impl ToText for HtmlElement {
+  /// Converts [HtmlElement] into text with specified offset and indent.
+  fn to_text(&self, offset: usize, indent: usize) -> String {
+    let mut buffer = String::new();
+    self.write(offset, indent, &mut buffer);
+    buffer
+  }
+}
+
+impl Display for HtmlElement {
+  /// Converts [HtmlElement] into text.
+  fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    write!(f, "{}", self.to_text(DEFAULT_HTML_OFFSET, DEFAULT_HTML_INDENT))
+  }
+}
+
 /// Implementation of commonly used HTML elements.
 impl HtmlElement {
-  /// Creates `<h1>` element with specified content.
-  pub fn h1(content: String) -> Self {
+  /// Creates `<h1>` HTML element. The [section heading] level 1 element.
+  ///
+  /// [section heading]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements
+  ///
+  /// # Example
+  ///
+  /// ```
+  /// # use domrs::HtmlElement;
+  /// let h = HtmlElement::h1("Heading level 1");
+  /// assert_eq!("<h1>Heading level 1</h1>", h.to_string());
+  /// ```
+  pub fn h1(content: &str) -> Self {
     Self::new("h1").content(content)
   }
 
-  /// Creates `<h2>` element with specified content.
-  pub fn h2(content: String) -> Self {
+  /// Creates `<h2>` HTML element. The [section heading] level 2 element.
+  ///
+  /// [section heading]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements
+  ///
+  /// # Example
+  ///
+  /// ```
+  /// # use domrs::HtmlElement;
+  /// let h = HtmlElement::h2("Heading level 2");
+  /// assert_eq!("<h2>Heading level 2</h2>", h.to_string());
+  /// ```
+  pub fn h2(content: &str) -> Self {
     Self::new("h2").content(content)
   }
 
-  /// Creates `<h3>` element with specified content.
-  pub fn h3(content: String) -> Self {
+  /// Creates `<h3>` HTML element. The [section heading] level 3 element.
+  ///
+  /// [section heading]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements
+  ///
+  /// # Example
+  ///
+  /// ```
+  /// # use domrs::HtmlElement;
+  /// let h = HtmlElement::h3("Heading level 3");
+  /// assert_eq!("<h3>Heading level 3</h3>", h.to_string());
+  /// ```
+  pub fn h3(content: &str) -> Self {
     Self::new("h3").content(content)
   }
 
-  /// Creates `<h4>` element with specified content.
-  pub fn h4(content: String) -> Self {
+  /// Creates `<h4>` HTML element. The [section heading] level 4 element.
+  ///
+  /// [section heading]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements
+  ///
+  /// # Example
+  ///
+  /// ```
+  /// # use domrs::HtmlElement;
+  /// let h = HtmlElement::h4("Heading level 4");
+  /// assert_eq!("<h4>Heading level 4</h4>", h.to_string());
+  /// ```
+  pub fn h4(content: &str) -> Self {
     Self::new("h4").content(content)
   }
 
-  /// Creates `<h5>` element with specified content.
-  pub fn h5(content: String) -> Self {
+  /// Creates `<h5>` HTML element. The [section heading] level 5 element.
+  ///
+  /// [section heading]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements
+  ///
+  /// # Example
+  ///
+  /// ```
+  /// # use domrs::HtmlElement;
+  /// let h = HtmlElement::h5("Heading level 5");
+  /// assert_eq!("<h5>Heading level 5</h5>", h.to_string());
+  /// ```
+  pub fn h5(content: &str) -> Self {
     Self::new("h5").content(content)
   }
 
-  /// Creates `<h6>` element with specified content.
-  pub fn h6(content: String) -> Self {
+  /// Creates `<h6>` HTML element. The [section heading] level 6 element.
+  ///
+  /// [section heading]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements
+  ///
+  /// # Example
+  ///
+  /// ```
+  /// # use domrs::HtmlElement;
+  /// let h = HtmlElement::h6("Heading level 6");
+  /// assert_eq!("<h6>Heading level 6</h6>", h.to_string());
+  /// ```
+  pub fn h6(content: &str) -> Self {
     Self::new("h6").content(content)
   }
 
-  /// Creates `<br>` element.
+  /// Creates `<br>` HTML element. The [line break] element.
+  ///
+  /// [line break]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/br
+  ///
+  /// # Example
+  ///
+  /// ```
+  /// # use domrs::HtmlElement;
+  /// let br = HtmlElement::br();
+  /// assert_eq!("<br/>", br.to_string());
+  /// ```
   pub fn br() -> Self {
     Self::new("br")
   }
 
-  /// Creates `<div>` element.
+  /// Creates `<div>` HTML element. The [content division] element.
+  ///
+  /// [content division]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div
+  ///
+  /// # Example
+  ///
+  /// ```
+  /// # use domrs::HtmlElement;
+  /// let div = HtmlElement::div();
+  /// assert_eq!("<div></div>", div.to_string());
+  /// ```
   pub fn div() -> Self {
     Self::new("div").always_expand()
   }
 
-  /// Creates `<span>` element.
+  /// Creates `<span>` HTML element. The [content span] element.
+  ///
+  /// [content span]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span
+  ///
+  /// # Example
+  ///
+  /// ```
+  /// # use domrs::HtmlElement;
+  /// let span = HtmlElement::span();
+  /// assert_eq!("<span></span>", span.to_string());
+  /// ```
   pub fn span() -> Self {
     Self::new("span").always_expand()
   }
 }
 
+/// Creates `<h1>` HTML element. The section heading level 1 element.
+///
+/// # Example
+///
+/// ```
+/// # use domrs::h1;
+/// # use domrs::HtmlElement;
+/// let h = h1!("Heading level 1");
+/// assert_eq!("<h1>Heading level 1</h1>", h.to_string());
+/// ```
 #[macro_export]
 macro_rules! h1 {
   ($content:expr) => {
@@ -239,6 +346,16 @@ macro_rules! h1 {
   };
 }
 
+/// Creates `<h2>` HTML element. The section heading level 2 element.
+///
+/// # Example
+///
+/// ```
+/// # use domrs::h2;
+/// # use domrs::HtmlElement;
+/// let h = h2!("Heading level 2");
+/// assert_eq!("<h2>Heading level 2</h2>", h.to_string());
+/// ```
 #[macro_export]
 macro_rules! h2 {
   ($content:expr) => {
@@ -246,6 +363,16 @@ macro_rules! h2 {
   };
 }
 
+/// Creates `<h3>` HTML element. The section heading level 3 element.
+///
+/// # Example
+///
+/// ```
+/// # use domrs::h3;
+/// # use domrs::HtmlElement;
+/// let h = h3!("Heading level 3");
+/// assert_eq!("<h3>Heading level 3</h3>", h.to_string());
+/// ```
 #[macro_export]
 macro_rules! h3 {
   ($content:expr) => {
@@ -253,6 +380,16 @@ macro_rules! h3 {
   };
 }
 
+/// Creates `<h4>` HTML element. The section heading level 4 element.
+///
+/// # Example
+///
+/// ```
+/// # use domrs::h4;
+/// # use domrs::HtmlElement;
+/// let h = h4!("Heading level 4");
+/// assert_eq!("<h4>Heading level 4</h4>", h.to_string());
+/// ```
 #[macro_export]
 macro_rules! h4 {
   ($content:expr) => {
@@ -260,6 +397,16 @@ macro_rules! h4 {
   };
 }
 
+/// Creates `<h5>` HTML element. The section heading level 5 element.
+///
+/// # Example
+///
+/// ```
+/// # use domrs::h5;
+/// # use domrs::HtmlElement;
+/// let h = h5!("Heading level 5");
+/// assert_eq!("<h5>Heading level 5</h5>", h.to_string());
+/// ```
 #[macro_export]
 macro_rules! h5 {
   ($content:expr) => {
@@ -267,6 +414,16 @@ macro_rules! h5 {
   };
 }
 
+/// Creates `<h6>` HTML element. The section heading level 6 element.
+///
+/// # Example
+///
+/// ```
+/// # use domrs::h6;
+/// # use domrs::HtmlElement;
+/// let h = h6!("Heading level 6");
+/// assert_eq!("<h6>Heading level 6</h6>", h.to_string());
+/// ```
 #[macro_export]
 macro_rules! h6 {
   ($content:expr) => {

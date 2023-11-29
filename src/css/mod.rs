@@ -26,8 +26,8 @@ pub use selector::{CssSelector, CssSelectorComponent, CssSelectorPart};
 pub use units::CssUnit;
 pub use values::CssValue;
 
-/// Default offset in CSS document.
+/// Default text offset in CSS documents.
 pub const DEFAULT_CSS_OFFSET: usize = 0;
 
-/// Default indentation in CSS document.
+/// Default text indentation in CSS documents.
 pub const DEFAULT_CSS_INDENT: usize = 2;

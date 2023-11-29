@@ -50,6 +50,10 @@ Whether you're building a web app, generating dynamic graphics, or managing styl
 Get started with **[domrs][crates-url]** today and unlock the potential for efficient
 document creation and serialization in [Rust][rust-url]!
 
+## Getting started
+
+🚧 WORK IN PROGRESS 🚧
+
 ## License
 
 Licensed under either of

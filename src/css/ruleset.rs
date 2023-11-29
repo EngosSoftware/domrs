@@ -1,4 +1,4 @@
-use crate::utils::get_indentation;
+use crate::common::get_indentation;
 use crate::{CssDeclaration, CssProperty, CssSelector, CssValue};
 use std::collections::BTreeMap;
 use std::fmt;

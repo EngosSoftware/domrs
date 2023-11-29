@@ -1,4 +1,8 @@
+use crate::common::ToText;
+use crate::svg::{DEFAULT_SVG_INDENT, DEFAULT_SVG_OFFSET};
 use crate::HtmlElement;
+use std::fmt;
+use std::fmt::Display;
 
 pub const DEFAULT_SVG_NAMESPACE: &str = "http://www.w3.org/2000/svg";
 
@@ -9,16 +13,36 @@ pub struct SvgDocument {
 }
 
 impl SvgDocument {
-  /// Adds width.
+  /// Creates an empty SVG document.
+  pub fn new() -> Self {
+    Default::default()
+  }
+
+  /// Adds width to SVG document.
   pub fn width(mut self, width: String) -> Self {
     self.width = width.into();
     self
   }
 
-  /// Adds height.
+  /// Adds height to SVG document.
   pub fn height(mut self, height: String) -> Self {
     self.height = height.into();
     self
+  }
+}
+
+impl ToText for SvgDocument {
+  /// Converts [SvgDocument] into its text representation.
+  fn to_text(&self, offset: usize, indent: usize) -> String {
+    let svg: HtmlElement = (*self).clone().into();
+    svg.to_text(offset, indent)
+  }
+}
+
+impl Display for SvgDocument {
+  /// Implements [Display] for [SvgDocument].
+  fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    write!(f, "{}", self.to_text(DEFAULT_SVG_OFFSET, DEFAULT_SVG_INDENT))
   }
 }
 

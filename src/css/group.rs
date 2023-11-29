@@ -1,4 +1,4 @@
-use crate::utils::get_indentation;
+use crate::common::get_indentation;
 use crate::{CssRuleset, DEFAULT_CSS_INDENT, DEFAULT_CSS_OFFSET};
 use std::fmt;
 use std::fmt::{Display, Write};

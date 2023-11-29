@@ -45,7 +45,7 @@ fn style_should_work() {
             ),
           )),
       )
-      .body(HtmlBodyElement::default().child(HtmlElement::span().class("my-text").content("DOM builder and serializer".to_string()))),
+      .body(HtmlBodyElement::default().child(HtmlElement::span().class("my-text").content("Document builder and serializer"))),
   );
 }
 
@@ -70,6 +70,6 @@ fn style_with_custom_indent_should_work() {
             .indent(4),
           ),
       )
-      .body(HtmlBodyElement::default().child(HtmlElement::new("span").attr("class", "my-text").content("DOM builder and serializer".to_string()))),
+      .body(HtmlBodyElement::default().child(HtmlElement::new("span").attr("class", "my-text").content("Document builder and serializer"))),
   );
 }

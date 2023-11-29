@@ -1,6 +1,6 @@
 use crate::{CssDocument, HtmlElement, DEFAULT_CSS_INDENT, DEFAULT_CSS_OFFSET};
 
-/// Structure representing the HTML `<style>` element.
+/// Structure representing HTML `<style>` element.
 #[derive(Debug, Clone)]
 pub struct HtmlStyleElement {
   style: CssDocument,
@@ -28,7 +28,7 @@ impl HtmlStyleElement {
 impl From<HtmlStyleElement> for HtmlElement {
   fn from(value: HtmlStyleElement) -> Self {
     let mut style = HtmlElement::new("style");
-    style.set_content(value.style.to_style(DEFAULT_CSS_OFFSET, value.indent));
+    style.set_content(&value.style.to_style(DEFAULT_CSS_OFFSET, value.indent));
     style
   }
 }

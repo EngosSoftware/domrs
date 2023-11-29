@@ -14,17 +14,17 @@ pub use head::HtmlHeadElement;
 pub use link::HtmlLinkElement;
 pub use style::HtmlStyleElement;
 
-/// Default HTML namespace.
+/// Default namespace in HTML documents.
 pub const DEFAULT_HTML_NAMESPACE: &str = "http://www.w3.org/1999/xhtml";
 
-/// Default DOCTYPE.
+/// Default `DOCTYPE` in HTML documents.
 pub const DEFAULT_HTML_DOCTYPE: &str = "<!DOCTYPE html>";
 
-/// Default language.
+/// Default language for HTML documents.
 pub const DEFAULT_HTML_LANGUAGE: &str = "en";
 
-/// Default offset in HTML document.
+/// Default text offset in HTML documents.
 pub const DEFAULT_HTML_OFFSET: usize = 0;
 
-/// Default indentation in HTML document.
+/// Default text indentation in HTML documents.
 pub const DEFAULT_HTML_INDENT: usize = 2;
