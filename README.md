@@ -16,7 +16,7 @@
 [mit-badge]: https://img.shields.io/badge/License-MIT-blue.svg
 [mit-url]: LICENSE-MIT
 [cc-badge]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
-[cc-url]: https://github.com/dsntk/dsntk-rs/blob/main/CODE_OF_CONDUCT.md
+[cc-url]: CODE_OF_CONDUCT
 
 ## Overview
 
