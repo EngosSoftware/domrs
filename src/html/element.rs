@@ -3,7 +3,7 @@ use crate::{HtmlAttribute, DEFAULT_HTML_INDENT, DEFAULT_HTML_OFFSET};
 use std::fmt;
 use std::fmt::{Debug, Display, Write};
 
-/// Structure representing HTML element.
+/// A structure representing HTML element.
 #[derive(Debug, Clone)]
 pub struct HtmlElement {
   /// Name of the element, will appear as a tag name in HTML document.
@@ -52,17 +52,14 @@ impl HtmlElement {
   }
 
   /// Sets an attribute of the HTML element.
-  pub fn attr<T: ToString>(mut self, name: &str, value: T) -> Self {
-    self.set_attr(name, value);
+  pub fn attribute<T: ToString>(mut self, name: T, value: T) -> Self {
+    self.set_attribute(name, value);
     self
   }
 
   /// Sets an attribute of the HTML element.
-  pub fn set_attr<T: ToString>(&mut self, name: &str, value: T) {
-    self.attributes.push(HtmlAttribute {
-      name: name.to_string(),
-      value: value.to_string(),
-    })
+  pub fn set_attribute<T: ToString>(&mut self, name: T, value: T) {
+    self.attributes.push(HtmlAttribute::new(name, value))
   }
 
   /// Sets a class attribute of the HTML element.
@@ -73,10 +70,7 @@ impl HtmlElement {
 
   /// Sets a class attribute of the HTML element.
   pub fn set_class(&mut self, class: &str) {
-    self.attributes.push(HtmlAttribute {
-      name: "class".to_string(),
-      value: class.to_string(),
-    })
+    self.attributes.push(HtmlAttribute::new("class", class))
   }
 
   /// Sets a style attribute of the HTML element.
@@ -87,10 +81,7 @@ impl HtmlElement {
 
   /// Sets a style attribute of the HTML element.
   pub fn set_style(&mut self, style: &str) {
-    self.attributes.push(HtmlAttribute {
-      name: "style".to_string(),
-      value: style.to_string(),
-    })
+    self.attributes.push(HtmlAttribute::new("style", style))
   }
 
   /// Adds a child element.
@@ -105,19 +96,32 @@ impl HtmlElement {
   }
 
   /// Adds an optional child element.
-  pub fn add_child_opt(&mut self, e: Option<HtmlElement>) {
-    if let Some(element) = e {
-      self.children.push(element);
+  pub fn opt_child(mut self, opt_child: Option<HtmlElement>) -> Self {
+    self.add_opt_child(opt_child);
+    self
+  }
+
+  /// Adds an optional child element.
+  pub fn add_opt_child(&mut self, opt_child: Option<HtmlElement>) {
+    if let Some(child) = opt_child {
+      self.children.push(child);
     }
   }
 
   /// Adds multiple children elements.
-  pub fn add_children(&mut self, elements: Vec<HtmlElement>) {
-    for element in elements {
-      self.children.push(element);
+  pub fn children(mut self, children: &[HtmlElement]) -> Self {
+    self.add_children(children);
+    self
+  }
+
+  /// Adds multiple children elements.
+  pub fn add_children(&mut self, children: &[HtmlElement]) {
+    for child in children {
+      self.children.push(child.clone());
     }
   }
 
+  /// Sets the content of the HTML element.
   pub fn content(mut self, content: &str) -> Self {
     self.set_content(content);
     self
@@ -128,14 +132,14 @@ impl HtmlElement {
     self.content = content.to_string().into();
   }
 
-  /// Serializes the element to its textual representation.
+  /// Converts the element to its textual representation and saves in provided string buffer.
   pub(crate) fn write(&self, mut offset: usize, indent: usize, buffer: &mut String) {
     if self.no_indent && offset >= indent {
       offset -= indent;
     }
     let _ = write!(buffer, "{}<{}", get_indentation(self.no_indent, offset), self.name);
     for attribute in &self.attributes {
-      let _ = write!(buffer, r#" {}="{}""#, attribute.name, attribute.value);
+      let _ = write!(buffer, "{}", attribute);
     }
     if self.children.is_empty() {
       if let Some(content) = &self.content {
@@ -185,7 +189,7 @@ impl ToText for HtmlElement {
 }
 
 impl Display for HtmlElement {
-  /// Converts [HtmlElement] into text.
+  /// Implements [Display] for [HtmlElement].
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
     write!(f, "{}", self.to_text(DEFAULT_HTML_OFFSET, DEFAULT_HTML_INDENT))
   }
@@ -436,10 +440,23 @@ macro_rules! div {
   ($class:expr, $content:expr) => {
     HtmlElement::div().class($class).content($content)
   };
-  ($class:expr) => {
-    HtmlElement::div().class($class)
+  ($content:expr) => {
+    HtmlElement::div().content($content)
   };
   () => {
     HtmlElement::div()
+  };
+}
+
+#[macro_export]
+macro_rules! span {
+  ($class:expr, $content:expr) => {
+    HtmlElement::span().class($class).content($content)
+  };
+  ($content:expr) => {
+    HtmlElement::span().content($content)
+  };
+  () => {
+    HtmlElement::span()
   };
 }

@@ -17,16 +17,12 @@ impl CssDeclaration {
       value: value.into(),
     }
   }
-
-  ///
-  pub fn to_style(&self) -> String {
-    format!("{}: {};", self.property, self.value)
-  }
 }
 
 impl Display for CssDeclaration {
+  /// implements [Display] for [CssDeclaration].
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-    write!(f, "{}", self.to_style())
+    write!(f, "{}: {};", self.property, self.value)
   }
 }
 

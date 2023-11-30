@@ -1,5 +1,6 @@
 use domrs::HtmlDocument;
 
+mod attributes;
 mod document;
 mod elements;
 mod head;

@@ -70,6 +70,6 @@ fn style_with_custom_indent_should_work() {
             .indent(4),
           ),
       )
-      .body(HtmlBodyElement::default().child(HtmlElement::new("span").attr("class", "my-text").content("Document builder and serializer"))),
+      .body(HtmlBodyElement::default().child(HtmlElement::new("span").attribute("class", "my-text").content("Document builder and serializer"))),
   );
 }

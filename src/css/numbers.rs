@@ -2,31 +2,34 @@ use crate::CssUnit;
 use std::fmt;
 use std::fmt::Display;
 
+/// A structure representing the CSS number.
 #[derive(Debug, Copy, Clone)]
 pub struct CssNumber(f64, usize, CssUnit);
 
 impl CssNumber {
-  ///
+  /// Creates a new number based on provided value, precision and unit.
   pub fn new(value: f64, precision: usize, unit: CssUnit) -> Self {
     Self(value, precision, unit)
   }
 }
 
 impl Display for CssNumber {
+  /// Implements [Display] for [CssNumber].
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-    write!(
-      f,
-      "{}",
+    let number = if self.0 == 0.0 {
+      "0".to_string()
+    } else {
       match self.2 {
         unit @ CssUnit::Auto => unit.to_string(),
         _ => format!("{0:.1$}{2}", self.0, self.1, self.2),
       }
-    )
+    };
+    write!(f, "{}", number)
   }
 }
 
 #[macro_export]
-macro_rules! num {
+macro_rules! css_num {
   ($value:expr, $precision:expr, $unit:expr) => {
     CssNumber::new($value, $precision, $unit)
   };

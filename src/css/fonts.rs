@@ -1,15 +1,19 @@
 use std::fmt;
 use std::fmt::Display;
 
+/// An enumeration representing a CSS font style.
 #[derive(Debug, Clone)]
 pub enum CssFontStyle {
+  /// Normal style.
   Normal,
+  /// Italic style.
   Italic,
+  /// Oblique style.
   Oblique,
 }
 
 impl Display for CssFontStyle {
-  ///
+  /// Implements [Display] for [CssFontStyle].
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
     write!(
       f,

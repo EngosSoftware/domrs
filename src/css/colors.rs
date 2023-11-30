@@ -1,7 +1,7 @@
 use std::fmt;
 use std::fmt::Display;
 
-/// CSS colors.
+/// An enumeration representing CSS colors.
 #[derive(Debug, Copy, Clone)]
 pub enum CssColor {
   AliceBlue,

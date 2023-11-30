@@ -29,15 +29,25 @@ tasks:
     cmds:
      - cmd: ./coverage.sh
 
+  doc:
+    desc: Generates the documentation
+    cmds:
+      - cmd: cargo doc --no-deps
+
   doc-open:
     desc: Generates the documentation and opens it in the browser
     cmds:
       - cmd: cargo doc --no-deps --open
 
-  doc:
+  doc-priv:
     desc: Generates the documentation
     cmds:
-      - cmd: cargo doc --no-deps
+      - cmd: cargo doc --no-deps --document-private-items
+
+  doc-priv-open:
+    desc: Generates the documentation and opens it in the browser
+    cmds:
+      - cmd: cargo doc --no-deps --document-private-items --open
 
   fmt:
     desc: Runs the code formatter

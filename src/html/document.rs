@@ -1,9 +1,9 @@
 use crate::html::DEFAULT_HTML_OFFSET;
-use crate::{HtmlBodyElement, HtmlElement, HtmlHeadElement, DEFAULT_HTML_DOCTYPE, DEFAULT_HTML_INDENT, DEFAULT_HTML_LANGUAGE, DEFAULT_HTML_NAMESPACE};
+use crate::{HtmlBodyElement, HtmlElement, HtmlHeadElement, ToText, DEFAULT_HTML_DOCTYPE, DEFAULT_HTML_INDENT, DEFAULT_HTML_LANGUAGE, DEFAULT_HTML_NAMESPACE};
 use std::fmt::{Display, Write};
 use std::{fmt, fs, io};
 
-/// Structure representing HTML document.
+/// A structure representing HTML document.
 #[derive(Debug, Clone)]
 pub struct HtmlDocument {
   /// Document type.
@@ -25,7 +25,7 @@ impl Default for HtmlDocument {
 impl HtmlDocument {
   /// Creates an empty HTML document.
   pub fn new() -> Self {
-    Default::default()
+    Self::default()
   }
 
   /// Uses default doctype declaration.
@@ -42,25 +42,25 @@ impl HtmlDocument {
 
   /// Uses default namespace.
   pub fn default_namespace(mut self) -> Self {
-    self.root.set_attr("xmlns", DEFAULT_HTML_NAMESPACE);
+    self.root.set_attribute("xmlns", DEFAULT_HTML_NAMESPACE);
     self
   }
 
   /// Uses custom namespace.
   pub fn namespace(mut self, namespace: &str) -> Self {
-    self.root.set_attr("xmlns", namespace);
+    self.root.set_attribute("xmlns", namespace);
     self
   }
 
   /// Uses default language.
   pub fn default_language(mut self) -> Self {
-    self.root.set_attr("lang", DEFAULT_HTML_LANGUAGE);
+    self.root.set_attribute("lang", DEFAULT_HTML_LANGUAGE);
     self
   }
 
   /// Uses custom language.
   pub fn language(mut self, language: &str) -> Self {
-    self.root.set_attr("lang", language);
+    self.root.set_attribute("lang", language);
     self
   }
 
@@ -76,26 +76,28 @@ impl HtmlDocument {
     self
   }
 
-  /// Returns the markup text for this HTML document.
-  pub fn markup(&self, offset: usize, indent: usize) -> String {
-    let mut markup = String::new();
-    if let Some(doctype) = &self.doctype {
-      let _ = writeln!(&mut markup, "{}", doctype);
-    }
-    self.root.write(offset, indent, &mut markup);
-    let _ = writeln!(&mut markup);
-    markup
-  }
-
   /// Saves the document to specified file.
   pub fn save(&self, file_name: &str, offset: usize, indent: usize) -> io::Result<()> {
-    fs::write(file_name, self.markup(offset, indent))
+    fs::write(file_name, self.to_text(offset, indent))
+  }
+}
+
+impl ToText for HtmlDocument {
+  /// Converts [HtmlDocument] to textual representation using provided offset and indent.
+  fn to_text(&self, offset: usize, indent: usize) -> String {
+    let mut buffer = String::new();
+    if let Some(doctype) = &self.doctype {
+      let _ = writeln!(&mut buffer, "{}", doctype);
+    }
+    self.root.write(offset, indent, &mut buffer);
+    let _ = writeln!(&mut buffer);
+    buffer
   }
 }
 
 impl Display for HtmlDocument {
   /// Converts [HtmlDocument] into its text representation.
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-    write!(f, "{}", self.markup(DEFAULT_HTML_OFFSET, DEFAULT_HTML_INDENT))
+    write!(f, "{}", self.to_text(DEFAULT_HTML_OFFSET, DEFAULT_HTML_INDENT))
   }
 }

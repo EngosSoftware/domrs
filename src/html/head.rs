@@ -1,7 +1,7 @@
 use crate::html::HtmlStyleElement;
 use crate::{HtmlElement, HtmlLinkElement};
 
-/// Structure representing HTML `<head>` element.
+/// A structure representing HTML `<head>` element.
 #[derive(Debug, Default, Clone)]
 pub struct HtmlHeadElement {
   charset: Option<String>,
@@ -53,7 +53,7 @@ impl From<HtmlHeadElement> for HtmlElement {
     let mut head = HtmlElement::new("head").no_indent();
     if let Some(charset) = value.charset {
       let mut meta = HtmlElement::new("meta").hide_closing_tag();
-      meta.set_attr("charset", charset);
+      meta.set_attribute("charset", &charset);
       head.add_child(meta);
     }
     if let Some(title) = value.title {

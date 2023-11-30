@@ -1,6 +1,6 @@
 use crate::HtmlElement;
 
-/// Structure representing HTML `<link>` element.
+/// A structure representing HTML `<link>` element.
 #[derive(Debug, Default, Clone)]
 pub struct HtmlLinkElement {
   rel: Option<String>,
@@ -29,10 +29,10 @@ impl From<HtmlLinkElement> for HtmlElement {
   fn from(value: HtmlLinkElement) -> Self {
     let mut link = HtmlElement::new("link").hide_closing_tag();
     if let Some(href) = value.href {
-      link.set_attr("href", href);
+      link.set_attribute("href", &href);
     }
     if let Some(rel) = value.rel {
-      link.set_attr("rel", rel);
+      link.set_attribute("rel", &rel);
     }
     link
   }

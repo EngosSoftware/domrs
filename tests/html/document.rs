@@ -1,5 +1,6 @@
 use super::*;
-use domrs::{HtmlBodyElement, HtmlDocument, HtmlHeadElement};
+use domrs::{HtmlBodyElement, HtmlDocument, HtmlHeadElement, DEFAULT_HTML_INDENT, DEFAULT_HTML_OFFSET};
+use std::fs;
 
 #[test]
 fn html_document_default_should_work() {
@@ -70,4 +71,17 @@ fn html_document_advanced_should_work() {
       .head(HtmlHeadElement::default())
       .body(HtmlBodyElement::default()),
   );
+}
+
+#[test]
+fn saving_html_document_to_file_should_work() {
+  let doc = HtmlDocument::default()
+    .default_doctype()
+    .default_language()
+    .default_namespace()
+    .head(HtmlHeadElement::default())
+    .body(HtmlBodyElement::default());
+  fs::create_dir_all("./target/documents").unwrap();
+  doc.save("./target/documents/D012.html", DEFAULT_HTML_OFFSET, DEFAULT_HTML_INDENT).unwrap();
+  assert_eq!(D012, fs::read_to_string("./target/documents/D012.html").unwrap());
 }

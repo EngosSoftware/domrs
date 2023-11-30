@@ -69,6 +69,12 @@ impl Display for CssValue {
   }
 }
 
+impl From<CssBorder> for CssValue {
+  fn from(value: CssBorder) -> Self {
+    CssValue::Border(value)
+  }
+}
+
 impl From<CssColor> for CssValue {
   fn from(value: CssColor) -> Self {
     CssValue::Color(value)
@@ -111,14 +117,20 @@ impl From<(CssNumber, CssNumber, CssNumber, CssNumber)> for CssValue {
   }
 }
 
-impl From<CssBorder> for CssValue {
-  fn from(value: CssBorder) -> Self {
-    CssValue::Border(value)
+impl From<u8> for CssValue {
+  fn from(value: u8) -> Self {
+    CssValue::Integer(value as i64)
   }
 }
 
 impl From<i8> for CssValue {
   fn from(value: i8) -> Self {
+    CssValue::Integer(value as i64)
+  }
+}
+
+impl From<u16> for CssValue {
+  fn from(value: u16) -> Self {
     CssValue::Integer(value as i64)
   }
 }
@@ -129,8 +141,20 @@ impl From<i16> for CssValue {
   }
 }
 
+impl From<u32> for CssValue {
+  fn from(value: u32) -> Self {
+    CssValue::Integer(value as i64)
+  }
+}
+
 impl From<i32> for CssValue {
   fn from(value: i32) -> Self {
+    CssValue::Integer(value as i64)
+  }
+}
+
+impl From<u64> for CssValue {
+  fn from(value: u64) -> Self {
     CssValue::Integer(value as i64)
   }
 }
@@ -138,18 +162,5 @@ impl From<i32> for CssValue {
 impl From<i64> for CssValue {
   fn from(value: i64) -> Self {
     CssValue::Integer(value)
-  }
-}
-
-#[cfg(test)]
-mod tests {
-  use super::*;
-  use crate::CssUnit;
-
-  #[test]
-  fn display_should_work() {
-    assert_eq!("center", CssValue::Center.to_string());
-    assert_eq!("1.234px", CssValue::Num1(CssNumber::new(1.234123_f64, 3, CssUnit::Px)).to_string());
-    assert_eq!("grid", CssValue::Grid.to_string());
   }
 }

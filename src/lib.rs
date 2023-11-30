@@ -32,8 +32,8 @@
 //!
 //! ```
 //! use domrs::HtmlDocument;
-//! let doc = HtmlDocument::new();
-//! assert_eq!("<html/>\n", doc.to_string());
+//! let html = HtmlDocument::new();
+//! assert_eq!("<html/>\n", html.to_string());
 //! ```
 //!
 //! ## Create CSS stylesheet
@@ -49,20 +49,24 @@
 //! ```
 //! use domrs::SvgDocument;
 //! let svg = SvgDocument::new();
-//! assert_eq!("<svg xmlns=\"http://www.w3.org/2000/svg\"/>", svg.to_string());
+//! assert_eq!(r#"<svg xmlns="http://www.w3.org/2000/svg"/>"#, svg.to_string());
 //! ```
+
+// #![deny(missing_docs)]
+// #![deny(rustdoc::broken_intra_doc_links)]
 
 mod common;
 mod css;
 mod html;
 mod svg;
 
+pub use common::ToText;
 pub use css::{
   CssAtRule, CssBorder, CssBorderStyle, CssColor, CssDeclaration, CssDocument, CssElement, CssFontFamily, CssFontGenericFamily, CssFontStyle, CssGroup, CssNumber, CssProperty,
-  CssRuleset, CssSelector, CssSelectorComponent, CssSelectorPart, CssUnit, CssValue, DEFAULT_CSS_INDENT, DEFAULT_CSS_OFFSET,
+  CssRuleset, CssSelector, CssSelectorPart, CssUnit, CssValue, DEFAULT_CSS_INDENT, DEFAULT_CSS_OFFSET,
 };
 pub use html::{
   HtmlAttribute, HtmlBodyElement, HtmlDocument, HtmlElement, HtmlHeadElement, HtmlLinkElement, HtmlStyleElement, DEFAULT_HTML_DOCTYPE, DEFAULT_HTML_INDENT, DEFAULT_HTML_LANGUAGE,
   DEFAULT_HTML_NAMESPACE, DEFAULT_HTML_OFFSET,
 };
-pub use svg::{SvgAttribute, SvgDocument};
+pub use svg::{SvgAttribute, SvgDocument, DEFAULT_SVG_INDENT, DEFAULT_SVG_OFFSET};

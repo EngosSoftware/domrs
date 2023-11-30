@@ -1,17 +1,20 @@
 use crate::common::get_indentation;
-use crate::{CssDeclaration, CssProperty, CssSelector, CssValue};
+use crate::{CssDeclaration, CssProperty, CssSelector, CssValue, ToText, DEFAULT_CSS_INDENT, DEFAULT_CSS_OFFSET};
 use std::collections::BTreeMap;
 use std::fmt;
 use std::fmt::{Display, Write};
 
+/// A structure representing CSS ruleset.
 #[derive(Debug, Clone)]
 pub struct CssRuleset {
+  /// CSS selector.
   selector: CssSelector,
+  /// CSS declarations.
   declarations: BTreeMap<CssProperty, CssDeclaration>,
 }
 
 impl CssRuleset {
-  ///
+  /// Creates a new ruleset with specified selector.
   pub fn new(selector: CssSelector) -> Self {
     Self {
       selector,
@@ -41,38 +44,24 @@ impl CssRuleset {
         .insert(declaration.property, CssDeclaration::new(declaration.property, declaration.value.clone()));
     }
   }
+}
 
-  pub fn to_style(&self, offset: usize, indent: usize) -> String {
-    let mut style = String::new();
-    let _ = writeln!(&mut style, "{}{} {{", get_indentation(false, offset), self.selector);
+impl ToText for CssRuleset {
+  /// Converts [CssRuleset] to a textual representation using specified offset and indent.
+  fn to_text(&self, offset: usize, indent: usize) -> String {
+    let mut buffer = String::new();
+    let _ = writeln!(&mut buffer, "{}{} {{", get_indentation(false, offset), self.selector);
     for declaration in self.declarations.values() {
-      let _ = writeln!(&mut style, "{}{}", get_indentation(false, offset + indent), declaration);
+      let _ = writeln!(&mut buffer, "{}{}", get_indentation(false, offset + indent), declaration);
     }
-    let _ = writeln!(&mut style, "{}}}", get_indentation(false, offset));
-    style
+    let _ = writeln!(&mut buffer, "{}}}", get_indentation(false, offset));
+    buffer
   }
 }
 
 impl Display for CssRuleset {
+  /// Implements [Display] for [CssRuleset].
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-    write!(f, "{}", self.to_style(0, 2))
-  }
-}
-
-#[cfg(test)]
-mod tests {
-  use super::*;
-  use crate::{CssNumber, CssProperty, CssUnit, CssValue};
-
-  #[test]
-  fn display_should_work() {
-    let ruleset = CssRuleset::new("p".into()).declaration(CssProperty::Width, CssValue::Num1(CssNumber::new(1.23, 2, CssUnit::Px)));
-    assert_eq!(
-      r"p {
-  width: 1.23px;
-}
-",
-      ruleset.to_string()
-    )
+    write!(f, "{}", self.to_text(DEFAULT_CSS_OFFSET, DEFAULT_CSS_INDENT))
   }
 }

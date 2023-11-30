@@ -1,4 +1,4 @@
-mod attribute;
+mod attributes;
 mod body;
 mod document;
 mod element;
@@ -6,7 +6,7 @@ mod head;
 mod link;
 mod style;
 
-pub use attribute::HtmlAttribute;
+pub use attributes::HtmlAttribute;
 pub use body::HtmlBodyElement;
 pub use document::HtmlDocument;
 pub use element::HtmlElement;

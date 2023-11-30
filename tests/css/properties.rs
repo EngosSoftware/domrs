@@ -1,4 +1,4 @@
-use domrs::CssProperty;
+use domrs::{CssProperty, SvgAttribute};
 
 #[test]
 fn display_should_work() {
@@ -361,4 +361,17 @@ fn display_should_work() {
 #[test]
 fn clone_should_work() {
   assert_eq!(CssProperty::ZIndex.clone().to_string(), CssProperty::ZIndex.to_string());
+}
+
+#[test]
+fn comparison_should_work() {
+  assert!((CssProperty::ZIndex == CssProperty::ZIndex));
+  assert!((CssProperty::ZIndex != CssProperty::Top));
+  assert!((CssProperty::SvgAttribute(SvgAttribute::Fill) == CssProperty::SvgAttribute(SvgAttribute::Fill)));
+}
+
+#[test]
+fn conversion_from_svg_attribute_should_work() {
+  let property: CssProperty = SvgAttribute::Fill.into();
+  assert_eq!("fill", property.to_string());
 }
