@@ -49,7 +49,7 @@
 //! ```
 //! use domrs::SvgDocument;
 //! let svg = SvgDocument::new();
-//! assert_eq!(r#"<svg xmlns="http://www.w3.org/2000/svg"/>"#, svg.to_string());
+//! assert_eq!(r#"<svg/>"#, svg.to_string());
 //! ```
 
 // #![deny(missing_docs)]
@@ -69,4 +69,4 @@ pub use html::{
   HtmlAttribute, HtmlBodyElement, HtmlDocument, HtmlElement, HtmlHeadElement, HtmlLinkElement, HtmlStyleElement, DEFAULT_HTML_DOCTYPE, DEFAULT_HTML_INDENT, DEFAULT_HTML_LANGUAGE,
   DEFAULT_HTML_NAMESPACE, DEFAULT_HTML_OFFSET,
 };
-pub use svg::{SvgAttribute, SvgDocument, DEFAULT_SVG_INDENT, DEFAULT_SVG_OFFSET};
+pub use svg::{SvgAttribute, SvgDocument, SvgNumber, DEFAULT_SVG_INDENT, DEFAULT_SVG_OFFSET};

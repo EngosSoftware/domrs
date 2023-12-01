@@ -1,4 +1,15 @@
+use super::*;
 use domrs::{CssColor, CssDocument, CssElement, CssGroup, CssProperty, CssRuleset};
+
+#[test]
+fn default_should_work() {
+  eq("", CssDocument::default());
+}
+
+#[test]
+fn new_should_work() {
+  eq("", CssDocument::new());
+}
 
 #[test]
 fn display_should_work() {

@@ -6,13 +6,6 @@ use std::fmt::Display;
 #[derive(Debug, Copy, Clone)]
 pub struct CssNumber(f64, usize, CssUnit);
 
-impl CssNumber {
-  /// Creates a new number based on provided value, precision and unit.
-  pub fn new(value: f64, precision: usize, unit: CssUnit) -> Self {
-    Self(value, precision, unit)
-  }
-}
-
 impl Display for CssNumber {
   /// Implements [Display] for [CssNumber].
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -25,6 +18,13 @@ impl Display for CssNumber {
       }
     };
     write!(f, "{}", number)
+  }
+}
+
+impl CssNumber {
+  /// Creates a new number based on provided value, precision and unit.
+  pub fn new(value: f64, precision: usize, unit: CssUnit) -> Self {
+    Self(value, precision, unit)
   }
 }
 

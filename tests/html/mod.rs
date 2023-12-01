@@ -33,8 +33,8 @@ const E001: &str = include_str!("files/E001.html");
 const E002: &str = include_str!("files/E002.html");
 
 /// Utility function for comparing HTML documents.
-fn eq(expected: &str, doc: HtmlDocument) {
-  assert_eq!(expected, doc.to_string());
+fn eq(expected: &str, html: HtmlDocument) {
+  assert_eq!(expected, html.to_string());
 }
 
 /// Utility function that return default HTML document.
