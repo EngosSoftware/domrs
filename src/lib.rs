@@ -52,7 +52,7 @@
 //! use domrs::SvgDocument;
 //!
 //! let svg = SvgDocument::new();
-//! assert_eq!(r#"<svg/>"#, svg.to_string());
+//! assert_eq!("<svg/>", svg.to_string());
 //! ```
 
 // #![deny(missing_docs)]
