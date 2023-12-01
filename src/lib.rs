@@ -32,6 +32,7 @@
 //!
 //! ```
 //! use domrs::HtmlDocument;
+//!
 //! let html = HtmlDocument::new();
 //! assert_eq!("<html/>\n", html.to_string());
 //! ```
@@ -40,6 +41,7 @@
 //!
 //! ```
 //! use domrs::CssDocument;
+//!
 //! let css = CssDocument::new();
 //! assert_eq!("", css.to_string());
 //! ```
@@ -48,6 +50,7 @@
 //!
 //! ```
 //! use domrs::SvgDocument;
+//!
 //! let svg = SvgDocument::new();
 //! assert_eq!(r#"<svg/>"#, svg.to_string());
 //! ```
