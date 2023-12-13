@@ -17,10 +17,14 @@ impl Display for HtmlAttribute {
 
 impl HtmlAttribute {
   /// Creates and attribute with provided name and value.
-  pub fn new<T: Into<String>>(name: T, value: T) -> Self {
+  pub fn new<N, V>(name: N, value: V) -> Self
+  where
+    N: ToString,
+    V: ToString,
+  {
     Self {
-      name: name.into(),
-      value: value.into(),
+      name: name.to_string(),
+      value: value.to_string(),
     }
   }
 }

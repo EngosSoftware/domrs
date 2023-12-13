@@ -81,3 +81,13 @@ fn setting_attribute_should_work() {
   assert_eq!(expected, area.to_string());
   assert_eq!(expected, HtmlElement::new("area").attribute("shape", "poly").to_string());
 }
+
+#[test]
+fn setting_attribute_should_work_1() {
+  let mut div = HtmlElement::new("div");
+  let width: f64 = 1.123;
+  div.set_attribute("width", width);
+  let expected = r#"<div width="1.123"/>"#;
+  assert_eq!(expected, div.to_string());
+  assert_eq!(expected, HtmlElement::new("div").attribute("width", width).to_string());
+}

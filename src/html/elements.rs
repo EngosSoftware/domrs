@@ -52,13 +52,21 @@ impl HtmlElement {
   }
 
   /// Sets an attribute of the HTML element.
-  pub fn attribute<T: Into<String>>(mut self, name: T, value: T) -> Self {
+  pub fn attribute<N, V>(mut self, name: N, value: V) -> Self
+  where
+    N: ToString,
+    V: ToString,
+  {
     self.set_attribute(name, value);
     self
   }
 
   /// Sets an attribute of the HTML element.
-  pub fn set_attribute<T: Into<String>>(&mut self, name: T, value: T) {
+  pub fn set_attribute<N, V>(&mut self, name: N, value: V)
+  where
+    N: ToString,
+    V: ToString,
+  {
     self.attributes.push(HtmlAttribute::new(name, value))
   }
 

@@ -1,7 +1,7 @@
 mod attributes;
 mod body;
 mod document;
-mod element;
+mod elements;
 mod head;
 mod link;
 mod style;
@@ -9,7 +9,7 @@ mod style;
 pub use attributes::HtmlAttribute;
 pub use body::HtmlBodyElement;
 pub use document::HtmlDocument;
-pub use element::HtmlElement;
+pub use elements::HtmlElement;
 pub use head::HtmlHeadElement;
 pub use link::HtmlLinkElement;
 pub use style::HtmlStyleElement;

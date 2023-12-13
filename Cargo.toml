@@ -1,6 +1,6 @@
 [package]
 name = "domrs"
-version = "0.0.14"
+version = "0.0.15"
 authors = ["Dariusz Depta <wisbery@users.noreply.github.com>"]
 description = "Document builder and serializer"
 documentation = "https://docs.rs/domrs"
