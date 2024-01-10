@@ -9,15 +9,13 @@ pub struct CssNumber(f64, usize, CssUnit);
 impl Display for CssNumber {
   /// Implements [Display] for [CssNumber].
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-    let number = if self.0 == 0.0 {
-      "0".to_string()
+    if self.2 == CssUnit::Auto {
+      write!(f, "auto")
+    } else if self.0 == 0.0 {
+      write!(f, "0")
     } else {
-      match self.2 {
-        unit @ CssUnit::Auto => unit.to_string(),
-        _ => format!("{0:.1$}{2}", self.0, self.1, self.2),
-      }
-    };
-    write!(f, "{}", number)
+      write!(f, "{0:.1$}{2}", self.0, self.1, self.2)
+    }
   }
 }
 

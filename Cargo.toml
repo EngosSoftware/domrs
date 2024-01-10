@@ -1,6 +1,6 @@
 [package]
 name = "domrs"
-version = "0.0.15"
+version = "0.0.16"
 authors = ["Dariusz Depta <wisbery@users.noreply.github.com>"]
 description = "Document builder and serializer"
 documentation = "https://docs.rs/domrs"
@@ -9,5 +9,3 @@ keywords = ["HTML", "CSS", "SVG", "builder", "serializer"]
 categories = ["encoding", "text-processing", "web-programming"]
 license = "MIT OR Apache-2.0"
 edition = "2021"
-
-[dependencies]
