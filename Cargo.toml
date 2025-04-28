@@ -1,10 +1,10 @@
 [package]
 name = "domrs"
-version = "0.0.16"
-authors = ["Dariusz Depta <wisbery@users.noreply.github.com>"]
+version = "0.0.17"
+authors = ["Dariusz Depta <depta@engos.de>"]
 description = "Document builder and serializer"
 documentation = "https://docs.rs/domrs"
-repository = "https://github.com/wisbery/domrs.git"
+repository = "https://github.com/EngosSoftware/domrs.git"
 keywords = ["HTML", "CSS", "SVG", "builder", "serializer"]
 categories = ["encoding", "text-processing", "web-programming"]
 license = "MIT OR Apache-2.0"

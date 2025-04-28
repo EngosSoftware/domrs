@@ -140,16 +140,16 @@ impl From<SvgDocument> for HtmlElement {
   fn from(value: SvgDocument) -> Self {
     let mut svg = HtmlElement::new("svg");
     if let Some(width) = value.width {
-      svg.set_attribute("width", &width.to_string());
+      svg.set_attribute("width", width.to_string());
     }
     if let Some(height) = value.height {
-      svg.set_attribute("height", &height.to_string());
+      svg.set_attribute("height", height.to_string());
     }
     if let Some(namespace) = value.namespace {
-      svg.set_attribute("xmlns", &namespace);
+      svg.set_attribute("xmlns", namespace);
     }
     if let Some((min_x, min_y, width, height)) = value.view_box {
-      svg.set_attribute("viewBox", &format!("{} {} {} {}", min_x, min_y, width, height));
+      svg.set_attribute("viewBox", format!("{} {} {} {}", min_x, min_y, width, height));
     }
     svg
   }

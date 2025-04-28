@@ -10,7 +10,7 @@ pub struct CssDeclaration {
 }
 
 impl CssDeclaration {
-  ///
+  /// Creates a new CSS declaration.
   pub fn new(property: impl Into<CssProperty>, value: impl Into<CssValue>) -> Self {
     Self {
       property: property.into(),
@@ -20,7 +20,7 @@ impl CssDeclaration {
 }
 
 impl Display for CssDeclaration {
-  /// implements [Display] for [CssDeclaration].
+  /// Implements [Display] for [CssDeclaration].
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
     write!(f, "{}: {};", self.property, self.value)
   }

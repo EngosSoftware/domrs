@@ -45,7 +45,7 @@ pub enum CssFontGenericFamily {
 }
 
 impl Display for CssFontGenericFamily {
-  ///
+  /// Implements [Display] trait for [CssFontGenericFamily].
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
     write!(
       f,
@@ -82,7 +82,7 @@ impl CssFontFamily {
 }
 
 impl Display for CssFontFamily {
-  ///
+  /// Implements [Display] trait for [CssFontFamily].
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
     let mut font_names = self.names.iter().map(|name| format!(r#""{}""#, name)).collect::<Vec<String>>();
     font_names.push(format!("{}", self.generic));
